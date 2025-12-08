@@ -1,0 +1,14 @@
+﻿MATERIAL_TYPE,STRENGTH,WEIGHT_CAPACITY,BIODEGRADABILITY_SCORE,Co2_EMISSION_SCORE,RECYCLABILITY_PERCENTAGE,INDUSTRY_CATEGORY
+Recycled Cardboard,Medium,5kg,8,2,90,Electronics
+Recycled Paper,Low,2kg,9,1,95,Food
+Bamboo Fiber,High,10kg,10,1,80,Cosmetics
+Plant Based Plastic(PLA),Medium,8kg,7,3,70,Electronics
+Bagasse (sugarcane fibre),Medium,6kg,9,2,85,Food
+Cornstarch Packaging,Low,3kg,10,1,75,Cosmetics
+Recycled PET,High,20kg,5,4,90,Electronics
+Mushroom Packaging,Medium,7kg,10,1,100,Electronics
+Hemp Packaging,High,12kg,8,2,85,Cosmetics
+Palm Leaf Packaging,Medium,6kg,9,2,80,Food
+Wheat straw board,High,15kg,8,3,60,Electronics
+coconut coir,Medium,14kg,9,3,65,Agriculture
+PLA Bioplastic,Medium,12kg,7,4,85,Food
