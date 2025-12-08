@@ -1,0 +1,19 @@
+CREATE TABLE materials (
+    MATERIAL_ID INTEGER PRIMARY KEY,
+    MATERIAL_TYPE TEXT,
+    STRENGTH REAL,
+    WEIGHT_CAPACITY REAL,
+    BIODEGRADABILITY_SCORE REAL,
+    Co2_EMISSION_SCORE REAL,
+    RECYCLABILITY_PERCENTAGE REAL,
+    INDUSTRY_CATEGORY TEXT
+);
+
+CREATE TABLE products (
+    product_id INTEGER PRIMARY KEY,
+    product_name TEXT,
+    category TEXT,
+    weight REAL,
+    fragility_level TEXT,
+    industry TEXT
+);
