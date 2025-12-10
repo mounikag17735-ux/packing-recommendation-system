@@ -1,0 +1,501 @@
+MATERIAL_ID,MATERIAL_TYPE,STRENGTH,WEIGHT_CAPACITY,BIODEGRADABILITY_SCORE,Co2_EMISSION_SCORE,RECYCLABILITY_PERCENTAGE,INDUSTRY_CATEGORY
+1,Bioplastic-PHB,90,43,38,86,24,Cosmetics
+2,Glass (Lightweight),74,16,74,69,26,Cosmetics
+3,Bioplastic-PHB,82,12,3,23,5,Food & Beverage
+4,Recycled PET,67,26,47,85,99,Logistics
+5,Aluminum (Recycled),108,42,43,78,62,Logistics
+6,Seaweed-Based Film,66,25,38,84,89,Electronics
+7,Glass (Lightweight),72,59,82,66,66,Pharmaceutical
+8,Compostable Starch Polymer,59,50,96,60,33,Electronics
+9,Recycled Paperboard,86,36,27,88,70,Cosmetics
+10,Seaweed-Based Film,95,7,70,80,65,Pharmaceutical
+11,Recycled Cardboard,69,45,49,45,79,Retail
+12,Hemp Fiber,91,34,76,86,26,Pharmaceutical
+13,Glass (Lightweight),103,54,18,84,85,Logistics
+14,Recycled PET,93,38,41,95,32,Electronics
+15,Recycled PET,68,50,59,56,67,Logistics
+16,Compostable Starch Polymer,84,46,23,68,57,Food & Beverage
+17,Palm Leaf,81,23,15,10,94,Cosmetics
+18,Recycled Cardboard,66,6,68,34,61,Electronics
+19,Bamboo Composite,59,17,3,20,44,Cosmetics
+20,Mushroom Mycelium Material,116,55,54,100,31,Logistics
+21,Seaweed-Based Film,53,19,69,38,0,Pharmaceutical
+22,Recycled Cardboard,68,45,42,63,90,Retail
+23,Bamboo Composite,53,54,15,24,13,Cosmetics
+24,Recycled PET,92,39,100,47,86,Food & Beverage
+25,Hemp Fiber,116,40,87,19,94,Cosmetics
+26,Recycled HDPE,52,44,51,63,65,Pharmaceutical
+27,Recycled Cardboard,96,41,52,72,77,Food & Beverage
+28,Bamboo Composite,98,5,63,99,75,Electronics
+29,Bioplastic-PHB,89,48,52,38,68,Electronics
+30,Aluminum (Recycled),114,44,64,52,13,Cosmetics
+31,Aluminum (Recycled),75,20,14,11,26,Cosmetics
+32,Palm Leaf,67,40,86,76,2,Electronics
+33,Bamboo Composite,88,24,5,81,86,Food & Beverage
+34,Glass (Lightweight),80,56,22,49,19,Retail
+35,Bioplastic-PHB,78,52,1,81,2,Cosmetics
+36,Bioplastic-PHB,100,7,84,8,33,Pharmaceutical
+37,Recycled PET,57,49,18,39,76,Electronics
+38,Seaweed-Based Film,104,41,51,57,63,Pharmaceutical
+39,Bioplastic-PHB,70,21,14,77,62,Retail
+40,Bamboo Composite,78,5,83,51,14,Retail
+41,Glass (Lightweight),116,23,52,44,34,Retail
+42,Recycled PET,66,37,73,65,72,Logistics
+43,Seaweed-Based Film,76,31,75,32,91,Pharmaceutical
+44,Palm Leaf,119,56,54,36,56,Retail
+45,Glass (Lightweight),58,53,33,48,32,Electronics
+46,Bamboo Composite,66,21,37,33,49,Food & Beverage
+47,Aluminum (Recycled),106,13,100,27,97,Pharmaceutical
+48,Recycled Cardboard,116,7,98,85,40,Cosmetics
+49,Recycled Cardboard,81,53,33,46,77,Logistics
+50,Recycled Cardboard,42,3,74,2,77,Cosmetics
+51,Recycled Cardboard,111,21,15,25,68,Electronics
+52,Glass (Lightweight),80,13,58,65,7,Pharmaceutical
+53,Glass (Lightweight),105,42,96,93,47,Cosmetics
+54,Glass (Lightweight),67,50,61,89,83,Logistics
+55,Palm Leaf,98,10,20,84,65,Food & Beverage
+56,Aluminum (Recycled),64,12,11,85,40,Retail
+57,Bioplastic-PHB,50,22,78,13,32,Cosmetics
+58,Aluminum (Recycled),85,40,3,64,34,Logistics
+59,Palm Leaf,46,45,18,57,72,Food & Beverage
+60,Palm Leaf,93,43,22,64,61,Retail
+61,Bioplastic-PHB,106,24,79,34,18,Electronics
+62,Aluminum (Recycled),44,35,7,2,54,Retail
+63,Bioplastic-PHB,49,17,87,16,18,Pharmaceutical
+64,Compostable Starch Polymer,69,13,72,88,84,Food & Beverage
+65,Palm Leaf,105,46,10,18,16,Cosmetics
+66,Bioplastic-PHB,99,3,73,71,59,Retail
+67,Aluminum (Recycled),79,24,18,43,42,Electronics
+68,Bioplastic-PHB,95,16,79,79,60,Food & Beverage
+69,Recycled Cardboard,109,55,60,13,37,Food & Beverage
+70,Glass (Lightweight),99,22,73,42,30,Logistics
+71,Palm Leaf,68,47,88,61,80,Food & Beverage
+72,Palm Leaf,83,4,58,33,2,Logistics
+73,Seaweed-Based Film,69,19,99,57,89,Food & Beverage
+74,Aluminum (Recycled),111,39,71,19,29,Retail
+75,Compostable Starch Polymer,87,1,25,50,84,Food & Beverage
+76,Glass (Lightweight),63,10,91,31,36,Retail
+77,Bamboo Composite,51,36,75,4,31,Retail
+78,Recycled HDPE,59,55,7,89,68,Logistics
+79,Seaweed-Based Film,70,15,88,31,19,Food & Beverage
+80,Palm Leaf,71,30,34,9,68,Electronics
+81,Glass (Lightweight),110,13,43,22,59,Cosmetics
+82,Recycled Cardboard,62,54,8,37,78,Logistics
+83,Glass (Lightweight),53,5,49,44,56,Logistics
+84,Bioplastic-PHB,40,48,17,89,76,Cosmetics
+85,Aluminum (Recycled),50,48,92,32,80,Logistics
+86,Bioplastic-PHB,45,5,38,22,15,Retail
+87,Bioplastic-PHB,63,11,80,51,81,Pharmaceutical
+88,Recycled PET,77,13,46,18,74,Cosmetics
+89,Palm Leaf,83,12,66,2,52,Cosmetics
+90,Glass (Lightweight),84,3,20,93,11,Food & Beverage
+91,Aluminum (Recycled),54,11,86,80,99,Retail
+92,Glass (Lightweight),110,10,69,17,14,Food & Beverage
+93,Recycled HDPE,97,31,12,73,78,Electronics
+94,Palm Leaf,71,52,3,16,18,Pharmaceutical
+95,Bioplastic-PLA,41,18,78,96,92,Cosmetics
+96,Bamboo Composite,97,51,77,41,52,Pharmaceutical
+97,Aluminum (Recycled),55,30,98,68,74,Cosmetics
+98,Hemp Fiber,84,18,76,56,17,Food & Beverage
+99,Seaweed-Based Film,83,42,21,43,2,Electronics
+100,Glass (Lightweight),62,5,92,41,12,Cosmetics
+101,Glass (Lightweight),59,4,78,85,31,Logistics
+102,Palm Leaf,102,40,11,62,46,Electronics
+103,Glass (Lightweight),98,17,36,65,51,Cosmetics
+104,Bamboo Composite,43,28,11,0,2,Pharmaceutical
+105,Aluminum (Recycled),54,39,10,82,75,Cosmetics
+106,Palm Leaf,118,15,80,53,0,Electronics
+107,Bioplastic-PHB,97,13,65,76,64,Cosmetics
+108,Bamboo Composite,109,9,75,28,53,Cosmetics
+109,Recycled Cardboard,75,39,13,76,79,Food & Beverage
+110,Glass (Lightweight),60,37,49,56,26,Food & Beverage
+111,Glass (Lightweight),87,25,15,6,35,Logistics
+112,Palm Leaf,105,46,63,3,74,Electronics
+113,Aluminum (Recycled),50,43,24,82,90,Food & Beverage
+114,Aluminum (Recycled),66,23,41,61,75,Electronics
+115,Bioplastic-PHB,81,24,31,10,85,Cosmetics
+116,Palm Leaf,66,31,31,42,55,Electronics
+117,Bioplastic-PHB,81,16,22,77,94,Retail
+118,Mushroom Mycelium Material,54,14,36,39,27,Electronics
+119,Bamboo Composite,103,35,14,19,43,Food & Beverage
+120,Glass (Lightweight),69,48,22,95,10,Pharmaceutical
+121,Recycled Cardboard,52,17,19,7,55,Logistics
+122,Aluminum (Recycled),96,19,55,12,56,Pharmaceutical
+123,Hemp Fiber,113,46,51,1,2,Electronics
+124,Bamboo Composite,101,22,10,79,4,Cosmetics
+125,Recycled Cardboard,95,14,60,46,68,Electronics
+126,Recycled Cardboard,97,56,27,14,80,Food & Beverage
+127,Palm Leaf,108,31,68,34,78,Food & Beverage
+128,Palm Leaf,82,2,1,43,14,Electronics
+129,Bamboo Composite,96,1,15,64,33,Electronics
+130,Recycled Cardboard,106,31,9,68,82,Retail
+131,Aluminum (Recycled),105,8,26,1,100,Pharmaceutical
+132,Recycled HDPE,44,3,57,47,40,Logistics
+133,Bioplastic-PHB,41,3,33,29,73,Electronics
+134,Bioplastic-PHB,104,24,89,82,72,Cosmetics
+135,Bamboo Composite,91,12,67,68,68,Retail
+136,Bamboo Composite,113,54,12,51,33,Cosmetics
+137,Aluminum (Recycled),42,35,96,47,79,Food & Beverage
+138,Glass (Lightweight),81,50,35,79,36,Cosmetics
+139,Recycled PET,44,29,32,32,38,Retail
+140,Bamboo Composite,114,11,11,74,3,Electronics
+141,Bioplastic-PHB,89,46,56,35,32,Food & Beverage
+142,Compostable Starch Polymer,72,33,83,1,25,Logistics
+143,Aluminum (Recycled),106,52,33,57,77,Cosmetics
+144,Bioplastic-PHB,94,40,96,50,38,Logistics
+145,Aluminum (Recycled),112,48,6,99,89,Logistics
+146,Aluminum (Recycled),69,19,27,8,94,Pharmaceutical
+147,Seaweed-Based Film,76,26,89,17,76,Pharmaceutical
+148,Bamboo Composite,50,3,53,55,67,Cosmetics
+149,Glass (Lightweight),60,15,83,59,49,Food & Beverage
+150,Bamboo Composite,110,11,59,56,70,Food & Beverage
+151,Bioplastic-PHB,71,37,23,64,79,Retail
+152,Aluminum (Recycled),65,26,16,30,47,Pharmaceutical
+153,Bamboo Composite,80,58,85,4,10,Cosmetics
+154,Palm Leaf,77,35,36,63,94,Food & Beverage
+155,Palm Leaf,80,4,37,65,26,Electronics
+156,Bioplastic-PHB,85,2,76,14,21,Pharmaceutical
+157,Bamboo Composite,89,3,98,84,62,Electronics
+158,Recycled Paperboard,99,39,66,62,48,Cosmetics
+159,Recycled Cardboard,119,44,56,65,73,Logistics
+160,Glass (Lightweight),90,15,52,27,38,Electronics
+161,Bioplastic-PHB,81,28,97,51,1,Logistics
+162,Glass (Lightweight),69,22,65,4,55,Food & Beverage
+163,Bioplastic-PLA,56,5,49,13,20,Retail
+164,Bamboo Composite,89,7,7,5,69,Logistics
+165,Compostable Starch Polymer,98,4,1,55,28,Cosmetics
+166,Bioplastic-PLA,65,1,96,88,70,Pharmaceutical
+167,Recycled Cardboard,80,59,9,59,79,Retail
+168,Palm Leaf,86,12,31,37,81,Pharmaceutical
+169,Aluminum (Recycled),106,49,65,7,79,Electronics
+170,Recycled PET,111,20,60,20,75,Cosmetics
+171,Recycled HDPE,71,38,38,41,13,Electronics
+172,Bioplastic-PHB,57,30,12,73,22,Pharmaceutical
+173,Palm Leaf,58,49,57,15,79,Retail
+174,Bioplastic-PHB,56,58,75,45,42,Food & Beverage
+175,Recycled Cardboard,79,23,65,34,75,Pharmaceutical
+176,Bamboo Composite,73,38,70,26,80,Cosmetics
+177,Palm Leaf,41,4,44,84,23,Pharmaceutical
+178,Glass (Lightweight),61,5,32,76,80,Cosmetics
+179,Glass (Lightweight),69,33,98,42,11,Cosmetics
+180,Hemp Fiber,62,49,61,71,81,Cosmetics
+181,Bioplastic-PHB,57,39,15,49,47,Logistics
+182,Seaweed-Based Film,102,29,22,42,87,Food & Beverage
+183,Palm Leaf,81,15,91,79,78,Retail
+184,Seaweed-Based Film,72,28,51,26,6,Cosmetics
+185,Compostable Starch Polymer,68,32,70,66,99,Retail
+186,Glass (Lightweight),83,9,13,58,88,Electronics
+187,Recycled HDPE,107,57,36,79,12,Cosmetics
+188,Palm Leaf,53,29,66,71,43,Pharmaceutical
+189,Palm Leaf,109,42,83,63,78,Retail
+190,Palm Leaf,55,6,45,70,14,Retail
+191,Bamboo Composite,67,48,46,67,53,Cosmetics
+192,Recycled Cardboard,96,9,48,8,81,Pharmaceutical
+193,Bamboo Composite,85,46,81,11,53,Retail
+194,Bioplastic-PHB,93,18,66,34,82,Logistics
+195,Compostable Starch Polymer,118,36,84,48,41,Logistics
+196,Palm Leaf,109,4,28,16,66,Pharmaceutical
+197,Recycled HDPE,98,46,37,5,7,Food & Beverage
+198,Seaweed-Based Film,113,10,54,23,79,Retail
+199,Seaweed-Based Film,59,3,64,93,45,Cosmetics
+200,Hemp Fiber,67,59,50,33,39,Retail
+201,Bioplastic-PHB,90,46,94,17,98,Cosmetics
+202,Bioplastic-PHB,82,52,83,82,22,Electronics
+203,Recycled Cardboard,97,30,56,31,37,Food & Beverage
+204,Compostable Starch Polymer,110,51,31,31,55,Logistics
+205,Recycled Cardboard,110,13,54,27,31,Retail
+206,Bioplastic-PHB,96,21,8,69,81,Food & Beverage
+207,Palm Leaf,99,16,41,60,56,Pharmaceutical
+208,Recycled HDPE,60,2,1,71,31,Cosmetics
+209,Palm Leaf,64,25,29,64,27,Pharmaceutical
+210,Bamboo Composite,56,6,42,98,70,Food & Beverage
+211,Seaweed-Based Film,77,48,29,76,33,Electronics
+212,Palm Leaf,58,14,98,88,95,Pharmaceutical
+213,Recycled HDPE,95,33,26,81,68,Retail
+214,Recycled Cardboard,54,24,14,100,12,Retail
+215,Glass (Lightweight),69,24,3,49,55,Food & Beverage
+216,Recycled HDPE,75,2,63,53,19,Food & Beverage
+217,Seaweed-Based Film,96,21,20,0,56,Food & Beverage
+218,Bamboo Composite,95,46,45,67,56,Electronics
+219,Bioplastic-PHB,117,53,84,94,23,Food & Beverage
+220,Palm Leaf,89,28,32,26,63,Pharmaceutical
+221,Glass (Lightweight),97,49,62,8,57,Food & Beverage
+222,Compostable Starch Polymer,58,31,53,33,39,Logistics
+223,Palm Leaf,66,21,84,46,79,Pharmaceutical
+224,Palm Leaf,48,16,71,64,47,Cosmetics
+225,Recycled HDPE,76,37,25,88,8,Retail
+226,Glass (Lightweight),41,28,98,8,37,Pharmaceutical
+227,Aluminum (Recycled),95,54,18,78,59,Pharmaceutical
+228,Recycled Cardboard,69,4,8,22,19,Pharmaceutical
+229,Aluminum (Recycled),118,42,49,21,89,Pharmaceutical
+230,Bioplastic-PHB,104,57,6,10,87,Electronics
+231,Aluminum (Recycled),70,21,97,100,45,Retail
+232,Bamboo Composite,105,12,47,72,9,Logistics
+233,Glass (Lightweight),114,20,69,25,76,Pharmaceutical
+234,Glass (Lightweight),66,10,83,66,63,Pharmaceutical
+235,Seaweed-Based Film,48,48,30,25,46,Logistics
+236,Glass (Lightweight),115,39,0,2,46,Food & Beverage
+237,Aluminum (Recycled),115,20,46,54,63,Pharmaceutical
+238,Recycled Cardboard,65,17,37,100,25,Cosmetics
+239,Glass (Lightweight),111,56,62,69,88,Cosmetics
+240,Glass (Lightweight),61,53,27,33,23,Cosmetics
+241,Bamboo Composite,98,50,70,67,19,Logistics
+242,Glass (Lightweight),96,41,95,52,65,Logistics
+243,Bamboo Composite,118,38,42,59,60,Food & Beverage
+244,Palm Leaf,111,23,62,65,38,Electronics
+245,Hemp Fiber,105,32,70,98,53,Retail
+246,Mushroom Mycelium Material,113,18,14,83,21,Logistics
+247,Recycled Paperboard,119,44,38,67,98,Electronics
+248,Palm Leaf,86,4,17,81,55,Food & Beverage
+249,Aluminum (Recycled),91,28,19,79,59,Food & Beverage
+250,Sugarcane Bagasse Fiber,112,18,60,64,79,Food & Beverage
+251,Recycled HDPE,74,16,40,51,77,Electronics
+252,Glass (Lightweight),49,3,94,67,48,Retail
+253,Bamboo Composite,115,11,22,88,38,Food & Beverage
+254,Bamboo Composite,108,57,35,84,73,Electronics
+255,Recycled Paperboard,96,8,58,95,4,Food & Beverage
+256,Bamboo Composite,96,13,33,96,65,Pharmaceutical
+257,Compostable Starch Polymer,81,58,81,14,5,Pharmaceutical
+258,Palm Leaf,105,29,33,58,40,Cosmetics
+259,Recycled Cardboard,97,34,69,20,39,Logistics
+260,Bamboo Composite,51,42,25,14,35,Pharmaceutical
+261,Aluminum (Recycled),98,9,61,3,32,Retail
+262,Bamboo Composite,114,10,82,69,80,Retail
+263,Palm Leaf,106,36,71,100,71,Pharmaceutical
+264,Bamboo Composite,54,24,83,21,48,Pharmaceutical
+265,Bioplastic-PHB,102,59,87,54,3,Cosmetics
+266,Compostable Starch Polymer,111,2,24,66,51,Retail
+267,Recycled HDPE,101,39,47,65,61,Pharmaceutical
+268,Palm Leaf,118,40,59,51,20,Food & Beverage
+269,Glass (Lightweight),81,59,14,4,10,Food & Beverage
+270,Seaweed-Based Film,112,11,68,97,10,Pharmaceutical
+271,Aluminum (Recycled),71,14,60,35,11,Cosmetics
+272,Compostable Starch Polymer,74,21,27,38,43,Retail
+273,Glass (Lightweight),42,4,76,99,61,Food & Beverage
+274,Recycled Cardboard,93,20,85,0,33,Electronics
+275,Recycled Cardboard,90,56,25,57,56,Electronics
+276,Glass (Lightweight),79,43,87,4,90,Cosmetics
+277,Aluminum (Recycled),103,36,77,27,84,Food & Beverage
+278,Aluminum (Recycled),103,42,58,23,7,Cosmetics
+279,Palm Leaf,57,16,83,33,34,Retail
+280,Bamboo Composite,62,1,16,95,48,Retail
+281,Glass (Lightweight),76,41,31,39,92,Logistics
+282,Aluminum (Recycled),64,29,69,49,38,Food & Beverage
+283,Palm Leaf,43,46,68,47,3,Cosmetics
+284,Glass (Lightweight),98,29,53,71,44,Pharmaceutical
+285,Recycled Cardboard,90,44,28,58,34,Cosmetics
+286,Aluminum (Recycled),82,17,41,6,82,Pharmaceutical
+287,Bamboo Composite,118,32,89,92,42,Pharmaceutical
+288,Bioplastic-PHB,81,47,94,60,40,Pharmaceutical
+289,Glass (Lightweight),54,34,85,90,70,Food & Beverage
+290,Compostable Starch Polymer,117,53,88,51,4,Food & Beverage
+291,Glass (Lightweight),114,5,28,41,89,Food & Beverage
+292,Hemp Fiber,88,2,71,79,9,Pharmaceutical
+293,Glass (Lightweight),67,29,31,6,12,Logistics
+294,Bamboo Composite,54,19,16,63,49,Pharmaceutical
+295,Recycled Cardboard,74,33,52,100,44,Logistics
+296,Glass (Lightweight),58,14,6,51,33,Food & Beverage
+297,Glass (Lightweight),51,59,78,25,25,Logistics
+298,Palm Leaf,55,23,92,51,47,Food & Beverage
+299,Palm Leaf,119,46,62,31,97,Pharmaceutical
+300,Bioplastic-PHB,47,24,68,23,91,Electronics
+301,Bioplastic-PHB,65,34,74,29,47,Electronics
+302,Seaweed-Based Film,110,23,66,31,70,Food & Beverage
+303,Recycled Cardboard,105,56,86,63,5,Cosmetics
+304,Palm Leaf,45,20,12,58,85,Electronics
+305,Palm Leaf,65,8,97,83,54,Pharmaceutical
+306,Recycled HDPE,45,10,3,39,51,Electronics
+307,Bioplastic-PHB,80,52,5,47,26,Food & Beverage
+308,Palm Leaf,95,11,92,86,17,Logistics
+309,Palm Leaf,113,48,70,61,0,Cosmetics
+310,Aluminum (Recycled),116,6,23,99,96,Cosmetics
+311,Seaweed-Based Film,55,47,52,13,33,Cosmetics
+312,Bamboo Composite,69,22,71,66,19,Food & Beverage
+313,Glass (Lightweight),65,50,27,39,22,Logistics
+314,Seaweed-Based Film,80,57,18,98,98,Electronics
+315,Bamboo Composite,117,41,0,51,26,Cosmetics
+316,Bioplastic-PHB,42,40,84,52,54,Food & Beverage
+317,Bioplastic-PHB,108,36,78,24,59,Pharmaceutical
+318,Recycled Cardboard,74,11,34,63,2,Food & Beverage
+319,Recycled Cardboard,44,11,53,38,2,Pharmaceutical
+320,Aluminum (Recycled),110,46,96,4,64,Logistics
+321,Hemp Fiber,56,45,74,63,88,Pharmaceutical
+322,Glass (Lightweight),84,37,83,4,23,Electronics
+323,Recycled Cardboard,45,13,83,54,69,Retail
+324,Glass (Lightweight),67,49,4,78,65,Retail
+325,Sugarcane Bagasse Fiber,61,30,96,3,33,Logistics
+326,Compostable Starch Polymer,48,12,93,73,42,Pharmaceutical
+327,Palm Leaf,106,6,41,80,7,Logistics
+328,Aluminum (Recycled),87,20,6,84,65,Electronics
+329,Aluminum (Recycled),114,29,14,50,37,Retail
+330,Seaweed-Based Film,107,42,35,53,0,Cosmetics
+331,Kenaf Fiber,86,11,65,72,4,Logistics
+332,Glass (Lightweight),65,30,61,4,42,Pharmaceutical
+333,Seaweed-Based Film,49,49,42,92,27,Logistics
+334,Glass (Lightweight),106,59,16,70,37,Electronics
+335,Seaweed-Based Film,63,42,95,74,80,Pharmaceutical
+336,Mushroom Mycelium Material,58,4,75,16,47,Logistics
+337,Bioplastic-PLA,43,34,49,98,19,Retail
+338,Glass (Lightweight),79,39,5,7,1,Pharmaceutical
+339,Recycled PET,110,48,18,86,72,Cosmetics
+340,Glass (Lightweight),56,26,9,80,88,Retail
+341,Bioplastic-PHB,64,41,12,72,46,Retail
+342,Bamboo Composite,114,5,58,51,20,Pharmaceutical
+343,Aluminum (Recycled),47,34,15,57,8,Cosmetics
+344,Recycled Cardboard,114,7,44,96,20,Food & Beverage
+345,Recycled HDPE,93,30,2,53,67,Retail
+346,Bamboo Composite,43,6,94,46,41,Pharmaceutical
+347,Bamboo Composite,105,32,72,11,39,Food & Beverage
+348,Bamboo Composite,102,8,71,90,47,Electronics
+349,Bamboo Composite,89,46,69,18,83,Retail
+350,Bioplastic-PHB,43,27,30,84,35,Electronics
+351,Recycled PET,102,1,11,90,0,Cosmetics
+352,Aluminum (Recycled),67,18,83,51,5,Food & Beverage
+353,Glass (Lightweight),92,11,78,22,37,Electronics
+354,Glass (Lightweight),107,1,3,37,38,Food & Beverage
+355,Hemp Fiber,88,50,14,57,16,Pharmaceutical
+356,Recycled Paperboard,94,28,33,5,21,Cosmetics
+357,Bamboo Composite,114,59,85,97,7,Pharmaceutical
+358,Glass (Lightweight),112,11,49,14,9,Logistics
+359,Bamboo Composite,78,39,80,0,35,Cosmetics
+360,Bioplastic-PHB,76,21,49,18,68,Logistics
+361,Hemp Fiber,101,11,16,84,84,Retail
+362,Aluminum (Recycled),77,12,75,36,26,Pharmaceutical
+363,Bioplastic-PHB,68,21,98,22,44,Retail
+364,Recycled Paperboard,40,51,52,84,10,Electronics
+365,Glass (Lightweight),62,26,17,13,24,Retail
+366,Seaweed-Based Film,89,50,87,48,5,Logistics
+367,Aluminum (Recycled),47,35,99,85,15,Food & Beverage
+368,Bioplastic-PHB,113,6,70,22,49,Logistics
+369,Glass (Lightweight),63,50,75,55,96,Cosmetics
+370,Glass (Lightweight),55,45,12,62,72,Pharmaceutical
+371,Bamboo Composite,105,49,54,42,93,Electronics
+372,Bioplastic-PHB,56,20,25,78,14,Retail
+373,Bioplastic-PHB,40,32,77,86,1,Electronics
+374,Compostable Starch Polymer,114,12,70,84,83,Cosmetics
+375,Aluminum (Recycled),46,36,49,43,90,Pharmaceutical
+376,Glass (Lightweight),55,53,68,96,39,Electronics
+377,Aluminum (Recycled),40,35,44,98,48,Cosmetics
+378,Compostable Starch Polymer,78,31,0,42,83,Cosmetics
+379,Bioplastic-PHB,74,1,9,44,93,Retail
+380,Seaweed-Based Film,104,12,83,84,10,Electronics
+381,Recycled Cardboard,110,46,8,54,96,Pharmaceutical
+382,Bamboo Composite,84,50,60,36,2,Logistics
+383,Recycled HDPE,116,6,80,25,87,Cosmetics
+384,Palm Leaf,70,23,60,99,14,Electronics
+385,Palm Leaf,83,19,61,86,73,Electronics
+386,Palm Leaf,52,28,68,78,32,Logistics
+387,Bioplastic-PHB,99,33,62,76,29,Electronics
+388,Glass (Lightweight),81,57,62,17,8,Retail
+389,Aluminum (Recycled),53,46,52,20,6,Retail
+390,Recycled Cardboard,110,24,75,69,74,Retail
+391,Seaweed-Based Film,102,2,62,80,75,Cosmetics
+392,Glass (Lightweight),108,47,82,60,41,Retail
+393,Seaweed-Based Film,119,16,32,77,39,Pharmaceutical
+394,Glass (Lightweight),82,37,83,22,22,Cosmetics
+395,Recycled Cardboard,75,43,41,76,85,Cosmetics
+396,Sugarcane Bagasse Fiber,83,40,80,40,97,Electronics
+397,Bioplastic-PHB,95,20,11,70,78,Electronics
+398,Aluminum (Recycled),119,19,42,19,0,Logistics
+399,Palm Leaf,48,41,34,2,10,Food & Beverage
+400,Palm Leaf,103,10,84,92,42,Cosmetics
+401,Bamboo Composite,77,21,76,86,40,Food & Beverage
+402,Bioplastic-PHB,81,15,78,97,13,Pharmaceutical
+403,Palm Leaf,94,54,41,95,26,Retail
+404,Recycled HDPE,40,29,57,22,73,Cosmetics
+405,Bioplastic-PHB,56,29,34,42,84,Retail
+406,Glass (Lightweight),59,35,27,33,64,Food & Beverage
+407,Aluminum (Recycled),48,34,100,3,37,Logistics
+408,Glass (Lightweight),57,14,72,74,37,Cosmetics
+409,Palm Leaf,107,8,14,100,57,Food & Beverage
+410,Recycled HDPE,60,28,20,100,19,Pharmaceutical
+411,Compostable Starch Polymer,98,39,93,90,49,Cosmetics
+412,Seaweed-Based Film,66,31,69,64,85,Electronics
+413,Palm Leaf,47,57,11,2,100,Retail
+414,Glass (Lightweight),81,18,32,99,59,Retail
+415,Glass (Lightweight),54,46,8,40,30,Pharmaceutical
+416,Palm Leaf,115,27,7,50,3,Food & Beverage
+417,Bioplastic-PHB,87,46,83,95,65,Food & Beverage
+418,Bamboo Composite,76,10,15,75,51,Food & Beverage
+419,Recycled Cardboard,106,57,74,30,21,Retail
+420,Bioplastic-PHB,108,22,27,66,14,Retail
+421,Bioplastic-PHB,86,12,2,63,48,Cosmetics
+422,Bioplastic-PHB,42,23,59,85,27,Logistics
+423,Seaweed-Based Film,104,24,55,64,17,Retail
+424,Recycled Cardboard,90,39,66,79,69,Electronics
+425,Aluminum (Recycled),98,16,15,26,54,Electronics
+426,Bamboo Composite,95,22,50,7,3,Retail
+427,Recycled Cardboard,44,37,96,93,25,Electronics
+428,Recycled Cardboard,55,33,5,69,91,Retail
+429,Bamboo Composite,80,26,31,38,56,Retail
+430,Seaweed-Based Film,49,7,100,42,51,Pharmaceutical
+431,Bamboo Composite,97,29,92,28,19,Cosmetics
+432,Hemp Fiber,79,25,57,46,25,Electronics
+433,Recycled PET,61,18,79,88,53,Electronics
+434,Recycled HDPE,54,40,3,93,64,Retail
+435,Aluminum (Recycled),58,25,9,86,35,Pharmaceutical
+436,Recycled PET,81,37,27,22,65,Retail
+437,Aluminum (Recycled),94,19,89,11,45,Pharmaceutical
+438,Palm Leaf,95,9,94,50,93,Electronics
+439,Recycled PET,73,18,23,29,84,Logistics
+440,Recycled Cardboard,75,56,32,35,20,Food & Beverage
+441,Seaweed-Based Film,97,42,63,39,42,Food & Beverage
+442,Bamboo Composite,72,24,85,31,89,Cosmetics
+443,Bioplastic-PLA,92,51,35,99,21,Retail
+444,Bamboo Composite,55,28,8,9,86,Food & Beverage
+445,Compostable Starch Polymer,104,8,92,29,25,Logistics
+446,Bioplastic-PHB,73,18,62,67,88,Food & Beverage
+447,Palm Leaf,109,48,93,75,5,Logistics
+448,Bioplastic-PHB,119,54,3,25,0,Retail
+449,Bamboo Composite,96,1,18,22,53,Cosmetics
+450,Recycled Cardboard,115,12,84,75,9,Electronics
+451,Mushroom Mycelium Material,85,36,94,3,15,Food & Beverage
+452,Bamboo Composite,71,33,21,19,89,Electronics
+453,Seaweed-Based Film,81,32,11,24,12,Cosmetics
+454,Recycled HDPE,67,25,45,61,71,Food & Beverage
+455,Palm Leaf,68,5,31,1,68,Pharmaceutical
+456,Recycled PET,59,38,20,18,61,Retail
+457,Bioplastic-PHB,76,50,98,1,29,Cosmetics
+458,Aluminum (Recycled),88,19,4,73,15,Cosmetics
+459,Glass (Lightweight),45,10,23,37,31,Food & Beverage
+460,Recycled PET,42,57,95,22,40,Electronics
+461,Bamboo Composite,95,39,19,24,20,Pharmaceutical
+462,Bioplastic-PHB,48,39,11,6,98,Electronics
+463,Aluminum (Recycled),112,47,58,63,15,Electronics
+464,Seaweed-Based Film,115,46,21,30,70,Pharmaceutical
+465,Recycled Cardboard,118,10,6,82,53,Electronics
+466,Recycled Paperboard,111,38,71,55,17,Retail
+467,Recycled HDPE,103,34,18,29,36,Retail
+468,Aluminum (Recycled),42,54,9,66,50,Electronics
+469,Palm Leaf,78,16,63,42,22,Cosmetics
+470,Recycled Cardboard,97,52,3,34,61,Logistics
+471,Glass (Lightweight),44,10,21,35,46,Pharmaceutical
+472,Palm Leaf,86,55,79,31,64,Electronics
+473,Aluminum (Recycled),109,38,86,76,49,Food & Beverage
+474,Palm Leaf,77,8,25,82,51,Electronics
+475,Palm Leaf,65,2,42,38,86,Retail
+476,Hemp Fiber,41,59,15,13,87,Logistics
+477,Bamboo Composite,110,13,47,58,92,Retail
+478,Glass (Lightweight),41,6,13,31,35,Logistics
+479,Bioplastic-PHB,113,14,43,56,24,Cosmetics
+480,Hemp Fiber,103,1,90,70,29,Pharmaceutical
+481,Palm Leaf,96,56,45,41,36,Food & Beverage
+482,Aluminum (Recycled),67,50,34,100,74,Pharmaceutical
+483,Hemp Fiber,61,42,51,65,68,Logistics
+484,Hemp Fiber,59,11,35,78,11,Food & Beverage
+485,Glass (Lightweight),109,23,12,47,35,Retail
+486,Seaweed-Based Film,89,57,9,59,92,Cosmetics
+487,Compostable Starch Polymer,46,5,85,50,76,Logistics
+488,Recycled Cardboard,118,1,80,87,53,Pharmaceutical
+489,Recycled Cardboard,95,43,83,1,84,Food & Beverage
+490,Seaweed-Based Film,63,34,32,64,75,Pharmaceutical
+491,Compostable Starch Polymer,65,3,72,30,24,Cosmetics
+492,Palm Leaf,53,39,99,15,40,Pharmaceutical
+493,Bamboo Composite,50,59,31,71,100,Logistics
+494,Aluminum (Recycled),49,47,11,55,8,Logistics
+495,Compostable Starch Polymer,80,32,54,3,91,Logistics
+496,Bamboo Composite,45,33,81,32,43,Electronics
+497,Aluminum (Recycled),66,24,72,10,20,Electronics
+498,Aluminum (Recycled),74,40,34,38,90,Electronics
+499,Glass (Lightweight),48,50,66,66,40,Cosmetics
+500,Bamboo Composite,46,54,7,22,38,Food & Beverage
