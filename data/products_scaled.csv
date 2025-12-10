@@ -1,0 +1,501 @@
+PRODUCT_ID,PRODUCT_NAME,CATEGORY,WEIGHT,FRAGILITY_LEVEL,INDUSTRY
+1,Sustainable Wrap,Retail Packaging,37,40,Retail
+2,Recyclable Cup,Retail Packaging,79,70,Pharmaceutical
+3,Eco Bottle,Shipping Container,22,40,Cosmetics
+4,Recyclable Cup,Retail Packaging,98,10,Cosmetics
+5,Sustainable Wrap,Cosmetic Packaging,36,30,Cosmetics
+6,Paper Wrap,Electronics Packaging,18,30,Food & Beverage
+7,Recyclable Cup,Pharma Packaging,98,50,Electronics
+8,Bio Tray,Food Packaging,14,70,Pharmaceutical
+9,Eco Bottle,Shipping Container,84,10,Pharmaceutical
+10,Sustainable Wrap,Pharma Packaging,96,80,Electronics
+11,Compostable Box,Cosmetic Packaging,37,50,Retail
+12,Recycled Jar,Retail Packaging,54,10,Pharmaceutical
+13,Compostable Box,Shipping Container,23,50,Cosmetics
+14,Plant-Based Cup,Food Packaging,92,90,Food & Beverage
+15,Bio Tray,Cosmetic Packaging,25,50,Retail
+16,Sustainable Wrap,Retail Packaging,81,40,Logistics
+17,Sustainable Wrap,Food Packaging,63,80,Cosmetics
+18,Plant-Based Cup,Cosmetic Packaging,69,30,Retail
+19,Bio Tray,Electronics Packaging,39,30,Food & Beverage
+20,Bio Tray,Retail Packaging,57,90,Food & Beverage
+21,Natural Canister,Shipping Container,64,50,Pharmaceutical
+22,Natural Canister,Electronics Packaging,49,10,Logistics
+23,Compostable Box,Food Packaging,25,50,Food & Beverage
+24,Sustainable Wrap,Electronics Packaging,82,10,Logistics
+25,Eco Bottle,Retail Packaging,69,60,Food & Beverage
+26,Compostable Box,Retail Packaging,78,90,Electronics
+27,Fiber Pouch,Electronics Packaging,19,20,Food & Beverage
+28,Eco Sleeve,Shipping Container,52,90,Cosmetics
+29,Plant-Based Cup,Pharma Packaging,57,50,Electronics
+30,Recycled Jar,Shipping Container,68,50,Food & Beverage
+31,Compostable Box,Electronics Packaging,86,90,Pharmaceutical
+32,Eco Sleeve,Retail Packaging,54,70,Cosmetics
+33,Bio Tray,Pharma Packaging,7,90,Pharmaceutical
+34,Sustainable Wrap,Electronics Packaging,27,50,Cosmetics
+35,Eco Sleeve,Retail Packaging,53,40,Food & Beverage
+36,Plant Fiber Container,Pharma Packaging,66,40,Logistics
+37,Compostable Box,Food Packaging,63,30,Food & Beverage
+38,Bio Packet,Food Packaging,76,10,Cosmetics
+39,Plant Fiber Container,Retail Packaging,8,70,Food & Beverage
+40,Green Mailer,Pharma Packaging,78,80,Retail
+41,Paper Wrap,Pharma Packaging,92,90,Retail
+42,Compostable Box,Shipping Container,15,80,Food & Beverage
+43,Compostable Box,Food Packaging,16,30,Food & Beverage
+44,Recycled Jar,Retail Packaging,31,20,Electronics
+45,Plant-Based Cup,Electronics Packaging,27,80,Cosmetics
+46,Recycled Jar,Cosmetic Packaging,6,60,Food & Beverage
+47,Fiber Pouch,Pharma Packaging,42,60,Food & Beverage
+48,Bio Packet,Shipping Container,47,20,Food & Beverage
+49,Recyclable Cup,Retail Packaging,22,20,Retail
+50,Sustainable Wrap,Cosmetic Packaging,59,70,Retail
+51,Fiber Pouch,Retail Packaging,73,20,Logistics
+52,Compostable Box,Electronics Packaging,47,60,Logistics
+53,Green Mailer,Pharma Packaging,32,90,Electronics
+54,Sustainable Wrap,Pharma Packaging,71,50,Retail
+55,Paper Wrap,Electronics Packaging,91,90,Electronics
+56,Bio Tray,Cosmetic Packaging,54,40,Retail
+57,Eco Bottle,Shipping Container,83,50,Cosmetics
+58,Green Mailer,Electronics Packaging,88,70,Retail
+59,Plant Fiber Container,Shipping Container,42,20,Pharmaceutical
+60,Eco Sleeve,Shipping Container,39,60,Logistics
+61,Plant-Based Cup,Shipping Container,18,40,Cosmetics
+62,Paper Wrap,Retail Packaging,79,40,Food & Beverage
+63,Recyclable Cup,Shipping Container,33,30,Food & Beverage
+64,Compostable Box,Shipping Container,79,10,Logistics
+65,Natural Canister,Pharma Packaging,68,60,Logistics
+66,Recycled Jar,Pharma Packaging,94,40,Pharmaceutical
+67,Recyclable Cup,Shipping Container,78,70,Logistics
+68,Eco Sleeve,Electronics Packaging,92,80,Food & Beverage
+69,Recyclable Cup,Retail Packaging,93,90,Retail
+70,Plant Fiber Container,Food Packaging,29,70,Cosmetics
+71,Eco Bottle,Shipping Container,46,10,Electronics
+72,Eco Tube,Pharma Packaging,91,10,Pharmaceutical
+73,Bio Packet,Food Packaging,10,30,Pharmaceutical
+74,Eco Tube,Shipping Container,14,50,Food & Beverage
+75,Sustainable Wrap,Retail Packaging,8,60,Food & Beverage
+76,Eco Tube,Pharma Packaging,86,60,Retail
+77,Green Mailer,Shipping Container,27,50,Retail
+78,Natural Canister,Pharma Packaging,100,30,Logistics
+79,Bio Packet,Shipping Container,36,60,Food & Beverage
+80,Natural Canister,Pharma Packaging,24,40,Retail
+81,Bio Packet,Food Packaging,48,60,Pharmaceutical
+82,Bio Tray,Cosmetic Packaging,27,20,Logistics
+83,Fiber Pouch,Retail Packaging,59,50,Electronics
+84,Eco Bottle,Retail Packaging,64,90,Logistics
+85,Compostable Box,Electronics Packaging,15,70,Food & Beverage
+86,Bio Tray,Food Packaging,29,90,Cosmetics
+87,Natural Canister,Retail Packaging,12,10,Pharmaceutical
+88,Eco Tube,Shipping Container,27,90,Food & Beverage
+89,Eco Tube,Retail Packaging,31,90,Logistics
+90,Sustainable Wrap,Electronics Packaging,44,90,Cosmetics
+91,Eco Sleeve,Retail Packaging,24,60,Electronics
+92,Recycled Jar,Pharma Packaging,28,20,Food & Beverage
+93,Recyclable Cup,Shipping Container,57,10,Pharmaceutical
+94,Fiber Pouch,Cosmetic Packaging,75,80,Logistics
+95,Natural Canister,Electronics Packaging,94,60,Retail
+96,Eco Tube,Retail Packaging,97,50,Electronics
+97,Eco Bottle,Pharma Packaging,56,60,Food & Beverage
+98,Recycled Jar,Cosmetic Packaging,71,10,Pharmaceutical
+99,Bio Tray,Cosmetic Packaging,14,60,Food & Beverage
+100,Recyclable Cup,Electronics Packaging,28,30,Food & Beverage
+101,Bio Tray,Cosmetic Packaging,23,70,Pharmaceutical
+102,Recycled Jar,Shipping Container,78,90,Pharmaceutical
+103,Recycled Jar,Shipping Container,70,90,Electronics
+104,Fiber Pouch,Cosmetic Packaging,7,60,Electronics
+105,Plant-Based Cup,Food Packaging,46,80,Retail
+106,Recycled Jar,Food Packaging,82,90,Pharmaceutical
+107,Compostable Box,Food Packaging,18,50,Pharmaceutical
+108,Green Mailer,Food Packaging,66,50,Electronics
+109,Fiber Pouch,Retail Packaging,37,60,Retail
+110,Paper Wrap,Food Packaging,40,40,Pharmaceutical
+111,Fiber Pouch,Cosmetic Packaging,8,50,Food & Beverage
+112,Natural Canister,Electronics Packaging,60,70,Retail
+113,Plant-Based Cup,Food Packaging,94,40,Pharmaceutical
+114,Recyclable Cup,Pharma Packaging,40,30,Cosmetics
+115,Plant-Based Cup,Food Packaging,67,10,Pharmaceutical
+116,Fiber Pouch,Food Packaging,66,50,Food & Beverage
+117,Eco Bottle,Cosmetic Packaging,60,10,Electronics
+118,Plant Fiber Container,Cosmetic Packaging,92,30,Food & Beverage
+119,Eco Bottle,Pharma Packaging,30,60,Pharmaceutical
+120,Natural Canister,Electronics Packaging,67,60,Electronics
+121,Natural Canister,Retail Packaging,57,70,Electronics
+122,Plant-Based Cup,Retail Packaging,75,30,Retail
+123,Natural Canister,Shipping Container,84,90,Logistics
+124,Compostable Box,Retail Packaging,27,10,Electronics
+125,Green Mailer,Pharma Packaging,74,90,Logistics
+126,Recycled Jar,Pharma Packaging,73,40,Logistics
+127,Eco Bottle,Retail Packaging,73,60,Electronics
+128,Recycled Jar,Food Packaging,55,40,Food & Beverage
+129,Bio Tray,Pharma Packaging,4,70,Cosmetics
+130,Paper Wrap,Electronics Packaging,4,60,Pharmaceutical
+131,Eco Bottle,Pharma Packaging,70,40,Food & Beverage
+132,Plant-Based Cup,Pharma Packaging,21,40,Logistics
+133,Paper Wrap,Electronics Packaging,23,50,Electronics
+134,Fiber Pouch,Cosmetic Packaging,70,10,Retail
+135,Bio Packet,Cosmetic Packaging,3,80,Food & Beverage
+136,Fiber Pouch,Pharma Packaging,17,10,Food & Beverage
+137,Green Mailer,Pharma Packaging,40,50,Food & Beverage
+138,Bio Tray,Cosmetic Packaging,15,30,Electronics
+139,Sustainable Wrap,Food Packaging,86,80,Logistics
+140,Eco Tube,Cosmetic Packaging,28,70,Cosmetics
+141,Plant-Based Cup,Shipping Container,8,90,Logistics
+142,Eco Tube,Food Packaging,100,50,Pharmaceutical
+143,Recycled Jar,Pharma Packaging,47,70,Logistics
+144,Compostable Box,Retail Packaging,92,30,Logistics
+145,Bio Tray,Electronics Packaging,36,10,Electronics
+146,Eco Sleeve,Retail Packaging,93,90,Electronics
+147,Fiber Pouch,Shipping Container,45,80,Retail
+148,Sustainable Wrap,Shipping Container,11,20,Food & Beverage
+149,Recycled Jar,Retail Packaging,52,90,Food & Beverage
+150,Eco Tube,Electronics Packaging,45,70,Cosmetics
+151,Eco Tube,Retail Packaging,65,20,Electronics
+152,Recyclable Cup,Pharma Packaging,33,80,Retail
+153,Paper Wrap,Electronics Packaging,64,60,Electronics
+154,Paper Wrap,Electronics Packaging,74,50,Food & Beverage
+155,Bio Tray,Electronics Packaging,19,90,Logistics
+156,Eco Sleeve,Electronics Packaging,90,20,Electronics
+157,Eco Bottle,Food Packaging,17,70,Electronics
+158,Eco Sleeve,Food Packaging,57,10,Food & Beverage
+159,Natural Canister,Retail Packaging,36,80,Logistics
+160,Sustainable Wrap,Food Packaging,38,60,Electronics
+161,Fiber Pouch,Food Packaging,42,80,Logistics
+162,Paper Wrap,Cosmetic Packaging,89,90,Food & Beverage
+163,Green Mailer,Electronics Packaging,10,60,Pharmaceutical
+164,Eco Tube,Food Packaging,95,30,Pharmaceutical
+165,Plant-Based Cup,Electronics Packaging,7,90,Logistics
+166,Recycled Jar,Cosmetic Packaging,84,50,Logistics
+167,Eco Sleeve,Retail Packaging,6,60,Logistics
+168,Compostable Box,Retail Packaging,20,20,Pharmaceutical
+169,Green Mailer,Food Packaging,31,90,Food & Beverage
+170,Natural Canister,Cosmetic Packaging,83,10,Logistics
+171,Green Mailer,Food Packaging,8,60,Cosmetics
+172,Green Mailer,Food Packaging,80,60,Logistics
+173,Green Mailer,Cosmetic Packaging,91,10,Food & Beverage
+174,Natural Canister,Pharma Packaging,33,80,Pharmaceutical
+175,Eco Sleeve,Electronics Packaging,36,20,Food & Beverage
+176,Bio Tray,Shipping Container,2,10,Pharmaceutical
+177,Bio Packet,Shipping Container,22,50,Logistics
+178,Plant Fiber Container,Retail Packaging,65,10,Pharmaceutical
+179,Eco Tube,Cosmetic Packaging,6,20,Pharmaceutical
+180,Eco Tube,Electronics Packaging,26,50,Cosmetics
+181,Recyclable Cup,Cosmetic Packaging,77,70,Logistics
+182,Plant-Based Cup,Food Packaging,6,90,Food & Beverage
+183,Eco Sleeve,Pharma Packaging,12,50,Logistics
+184,Bio Tray,Electronics Packaging,13,40,Cosmetics
+185,Plant Fiber Container,Retail Packaging,8,60,Cosmetics
+186,Compostable Box,Cosmetic Packaging,87,30,Food & Beverage
+187,Plant Fiber Container,Cosmetic Packaging,35,40,Logistics
+188,Compostable Box,Cosmetic Packaging,90,90,Logistics
+189,Sustainable Wrap,Food Packaging,100,90,Pharmaceutical
+190,Sustainable Wrap,Shipping Container,93,60,Pharmaceutical
+191,Bio Packet,Food Packaging,96,10,Cosmetics
+192,Plant-Based Cup,Shipping Container,50,20,Cosmetics
+193,Recyclable Cup,Retail Packaging,4,10,Logistics
+194,Compostable Box,Retail Packaging,69,60,Pharmaceutical
+195,Sustainable Wrap,Food Packaging,94,10,Cosmetics
+196,Plant-Based Cup,Electronics Packaging,36,80,Food & Beverage
+197,Fiber Pouch,Retail Packaging,7,10,Cosmetics
+198,Eco Sleeve,Electronics Packaging,71,90,Retail
+199,Natural Canister,Cosmetic Packaging,54,40,Cosmetics
+200,Plant Fiber Container,Electronics Packaging,1,40,Logistics
+201,Plant-Based Cup,Cosmetic Packaging,45,40,Logistics
+202,Bio Tray,Electronics Packaging,89,10,Logistics
+203,Plant-Based Cup,Cosmetic Packaging,56,20,Pharmaceutical
+204,Eco Bottle,Shipping Container,15,20,Cosmetics
+205,Eco Tube,Electronics Packaging,81,40,Food & Beverage
+206,Bio Packet,Shipping Container,87,90,Logistics
+207,Compostable Box,Retail Packaging,95,90,Logistics
+208,Compostable Box,Shipping Container,74,30,Pharmaceutical
+209,Green Mailer,Electronics Packaging,44,90,Pharmaceutical
+210,Recyclable Cup,Shipping Container,99,60,Cosmetics
+211,Recycled Jar,Food Packaging,75,60,Pharmaceutical
+212,Fiber Pouch,Cosmetic Packaging,73,80,Pharmaceutical
+213,Bio Tray,Pharma Packaging,38,70,Cosmetics
+214,Compostable Box,Retail Packaging,39,70,Pharmaceutical
+215,Bio Packet,Cosmetic Packaging,86,10,Retail
+216,Recyclable Cup,Pharma Packaging,81,40,Cosmetics
+217,Bio Tray,Food Packaging,4,40,Electronics
+218,Eco Bottle,Retail Packaging,86,50,Food & Beverage
+219,Paper Wrap,Cosmetic Packaging,54,90,Pharmaceutical
+220,Plant-Based Cup,Electronics Packaging,58,90,Food & Beverage
+221,Bio Tray,Electronics Packaging,69,40,Cosmetics
+222,Recycled Jar,Retail Packaging,67,60,Pharmaceutical
+223,Recycled Jar,Retail Packaging,53,70,Pharmaceutical
+224,Eco Bottle,Food Packaging,51,50,Cosmetics
+225,Bio Packet,Cosmetic Packaging,86,20,Retail
+226,Bio Tray,Shipping Container,3,80,Pharmaceutical
+227,Recycled Jar,Cosmetic Packaging,26,60,Logistics
+228,Eco Tube,Retail Packaging,10,20,Food & Beverage
+229,Recyclable Cup,Shipping Container,4,20,Logistics
+230,Recycled Jar,Food Packaging,47,50,Retail
+231,Fiber Pouch,Shipping Container,36,60,Electronics
+232,Paper Wrap,Pharma Packaging,1,20,Electronics
+233,Plant-Based Cup,Retail Packaging,12,40,Electronics
+234,Plant Fiber Container,Cosmetic Packaging,92,10,Electronics
+235,Eco Bottle,Pharma Packaging,38,90,Cosmetics
+236,Fiber Pouch,Pharma Packaging,12,20,Retail
+237,Plant-Based Cup,Retail Packaging,12,20,Logistics
+238,Paper Wrap,Pharma Packaging,79,30,Electronics
+239,Bio Packet,Cosmetic Packaging,21,60,Food & Beverage
+240,Recyclable Cup,Food Packaging,8,30,Pharmaceutical
+241,Recycled Jar,Cosmetic Packaging,4,50,Food & Beverage
+242,Natural Canister,Shipping Container,60,20,Pharmaceutical
+243,Plant-Based Cup,Retail Packaging,1,50,Electronics
+244,Bio Packet,Retail Packaging,59,20,Cosmetics
+245,Green Mailer,Food Packaging,43,40,Logistics
+246,Bio Tray,Electronics Packaging,19,50,Retail
+247,Eco Tube,Food Packaging,79,30,Electronics
+248,Eco Bottle,Electronics Packaging,51,20,Cosmetics
+249,Bio Packet,Retail Packaging,44,70,Pharmaceutical
+250,Green Mailer,Electronics Packaging,14,60,Electronics
+251,Recycled Jar,Shipping Container,58,10,Food & Beverage
+252,Recycled Jar,Retail Packaging,28,90,Food & Beverage
+253,Fiber Pouch,Pharma Packaging,17,60,Logistics
+254,Fiber Pouch,Pharma Packaging,60,30,Logistics
+255,Fiber Pouch,Food Packaging,86,70,Retail
+256,Eco Tube,Cosmetic Packaging,98,90,Pharmaceutical
+257,Compostable Box,Pharma Packaging,39,40,Cosmetics
+258,Compostable Box,Shipping Container,62,40,Retail
+259,Eco Sleeve,Food Packaging,30,40,Cosmetics
+260,Recycled Jar,Pharma Packaging,39,60,Electronics
+261,Sustainable Wrap,Cosmetic Packaging,71,10,Logistics
+262,Eco Bottle,Cosmetic Packaging,43,40,Retail
+263,Eco Sleeve,Food Packaging,77,20,Electronics
+264,Sustainable Wrap,Pharma Packaging,16,60,Pharmaceutical
+265,Recycled Jar,Retail Packaging,81,80,Retail
+266,Eco Bottle,Shipping Container,67,40,Logistics
+267,Plant Fiber Container,Shipping Container,81,20,Logistics
+268,Green Mailer,Cosmetic Packaging,85,90,Cosmetics
+269,Eco Tube,Retail Packaging,72,70,Cosmetics
+270,Natural Canister,Retail Packaging,16,40,Cosmetics
+271,Eco Sleeve,Shipping Container,75,70,Cosmetics
+272,Bio Tray,Food Packaging,78,20,Logistics
+273,Eco Sleeve,Food Packaging,89,20,Electronics
+274,Eco Sleeve,Shipping Container,57,10,Cosmetics
+275,Sustainable Wrap,Retail Packaging,81,10,Electronics
+276,Eco Tube,Electronics Packaging,24,10,Electronics
+277,Green Mailer,Food Packaging,85,90,Pharmaceutical
+278,Natural Canister,Cosmetic Packaging,18,10,Cosmetics
+279,Compostable Box,Food Packaging,11,30,Retail
+280,Fiber Pouch,Shipping Container,57,90,Logistics
+281,Plant Fiber Container,Shipping Container,13,30,Logistics
+282,Eco Sleeve,Electronics Packaging,49,40,Retail
+283,Plant-Based Cup,Retail Packaging,35,70,Cosmetics
+284,Eco Tube,Cosmetic Packaging,57,40,Cosmetics
+285,Recyclable Cup,Cosmetic Packaging,3,70,Pharmaceutical
+286,Eco Bottle,Retail Packaging,35,20,Food & Beverage
+287,Eco Bottle,Retail Packaging,43,20,Logistics
+288,Sustainable Wrap,Electronics Packaging,34,40,Electronics
+289,Eco Bottle,Food Packaging,2,20,Cosmetics
+290,Recyclable Cup,Shipping Container,59,10,Pharmaceutical
+291,Bio Tray,Retail Packaging,13,80,Electronics
+292,Fiber Pouch,Electronics Packaging,66,50,Electronics
+293,Eco Sleeve,Cosmetic Packaging,87,80,Food & Beverage
+294,Natural Canister,Cosmetic Packaging,59,90,Retail
+295,Eco Sleeve,Pharma Packaging,75,50,Cosmetics
+296,Bio Packet,Electronics Packaging,44,30,Pharmaceutical
+297,Bio Tray,Cosmetic Packaging,78,80,Cosmetics
+298,Plant-Based Cup,Shipping Container,51,10,Logistics
+299,Eco Sleeve,Pharma Packaging,28,30,Cosmetics
+300,Bio Packet,Electronics Packaging,1,60,Pharmaceutical
+301,Green Mailer,Retail Packaging,31,90,Retail
+302,Plant Fiber Container,Electronics Packaging,93,70,Electronics
+303,Compostable Box,Electronics Packaging,51,30,Pharmaceutical
+304,Plant Fiber Container,Pharma Packaging,4,40,Electronics
+305,Fiber Pouch,Food Packaging,36,70,Food & Beverage
+306,Recycled Jar,Electronics Packaging,21,20,Electronics
+307,Sustainable Wrap,Cosmetic Packaging,100,70,Cosmetics
+308,Eco Bottle,Cosmetic Packaging,69,90,Food & Beverage
+309,Recycled Jar,Cosmetic Packaging,77,80,Retail
+310,Bio Tray,Electronics Packaging,81,90,Retail
+311,Plant-Based Cup,Pharma Packaging,26,40,Food & Beverage
+312,Fiber Pouch,Shipping Container,93,90,Food & Beverage
+313,Plant-Based Cup,Electronics Packaging,56,70,Retail
+314,Paper Wrap,Retail Packaging,61,40,Retail
+315,Bio Tray,Pharma Packaging,9,70,Food & Beverage
+316,Sustainable Wrap,Cosmetic Packaging,97,70,Cosmetics
+317,Natural Canister,Food Packaging,97,50,Pharmaceutical
+318,Green Mailer,Retail Packaging,80,80,Cosmetics
+319,Recycled Jar,Food Packaging,24,40,Food & Beverage
+320,Paper Wrap,Pharma Packaging,83,90,Food & Beverage
+321,Paper Wrap,Food Packaging,16,90,Electronics
+322,Fiber Pouch,Cosmetic Packaging,78,20,Logistics
+323,Recyclable Cup,Electronics Packaging,8,90,Cosmetics
+324,Bio Packet,Cosmetic Packaging,33,60,Pharmaceutical
+325,Fiber Pouch,Pharma Packaging,13,30,Logistics
+326,Bio Packet,Cosmetic Packaging,26,10,Logistics
+327,Eco Sleeve,Pharma Packaging,80,80,Retail
+328,Compostable Box,Food Packaging,2,70,Retail
+329,Recyclable Cup,Electronics Packaging,16,70,Retail
+330,Paper Wrap,Retail Packaging,86,50,Electronics
+331,Fiber Pouch,Electronics Packaging,64,90,Electronics
+332,Recyclable Cup,Electronics Packaging,7,90,Pharmaceutical
+333,Sustainable Wrap,Pharma Packaging,79,40,Logistics
+334,Eco Sleeve,Cosmetic Packaging,35,50,Logistics
+335,Paper Wrap,Cosmetic Packaging,64,10,Pharmaceutical
+336,Natural Canister,Cosmetic Packaging,30,20,Retail
+337,Plant Fiber Container,Pharma Packaging,52,80,Electronics
+338,Green Mailer,Electronics Packaging,47,10,Electronics
+339,Eco Tube,Pharma Packaging,37,20,Pharmaceutical
+340,Bio Tray,Cosmetic Packaging,43,40,Cosmetics
+341,Plant-Based Cup,Electronics Packaging,45,90,Pharmaceutical
+342,Compostable Box,Food Packaging,69,20,Logistics
+343,Bio Packet,Shipping Container,40,90,Retail
+344,Sustainable Wrap,Retail Packaging,51,30,Electronics
+345,Green Mailer,Shipping Container,37,40,Retail
+346,Green Mailer,Pharma Packaging,31,10,Food & Beverage
+347,Green Mailer,Pharma Packaging,78,40,Electronics
+348,Sustainable Wrap,Cosmetic Packaging,19,80,Electronics
+349,Eco Tube,Shipping Container,14,40,Retail
+350,Plant Fiber Container,Shipping Container,28,20,Pharmaceutical
+351,Recyclable Cup,Cosmetic Packaging,26,10,Electronics
+352,Natural Canister,Cosmetic Packaging,25,90,Electronics
+353,Plant-Based Cup,Pharma Packaging,23,60,Pharmaceutical
+354,Fiber Pouch,Shipping Container,18,90,Retail
+355,Green Mailer,Pharma Packaging,18,50,Electronics
+356,Plant-Based Cup,Pharma Packaging,37,90,Retail
+357,Natural Canister,Shipping Container,43,70,Logistics
+358,Paper Wrap,Retail Packaging,4,20,Electronics
+359,Bio Packet,Shipping Container,88,10,Logistics
+360,Green Mailer,Electronics Packaging,45,30,Electronics
+361,Bio Packet,Pharma Packaging,57,30,Food & Beverage
+362,Plant-Based Cup,Electronics Packaging,52,40,Logistics
+363,Fiber Pouch,Cosmetic Packaging,75,20,Cosmetics
+364,Natural Canister,Retail Packaging,3,20,Electronics
+365,Compostable Box,Retail Packaging,22,30,Food & Beverage
+366,Eco Bottle,Shipping Container,10,50,Electronics
+367,Plant Fiber Container,Pharma Packaging,95,90,Logistics
+368,Eco Tube,Pharma Packaging,5,50,Food & Beverage
+369,Plant Fiber Container,Electronics Packaging,98,90,Retail
+370,Fiber Pouch,Retail Packaging,94,10,Cosmetics
+371,Sustainable Wrap,Food Packaging,69,30,Cosmetics
+372,Eco Sleeve,Electronics Packaging,96,60,Pharmaceutical
+373,Sustainable Wrap,Food Packaging,34,40,Electronics
+374,Fiber Pouch,Food Packaging,22,20,Cosmetics
+375,Bio Packet,Electronics Packaging,24,30,Electronics
+376,Sustainable Wrap,Pharma Packaging,18,10,Food & Beverage
+377,Bio Tray,Shipping Container,38,10,Electronics
+378,Paper Wrap,Food Packaging,92,90,Pharmaceutical
+379,Eco Tube,Food Packaging,91,10,Electronics
+380,Plant Fiber Container,Food Packaging,36,20,Pharmaceutical
+381,Bio Packet,Shipping Container,64,50,Logistics
+382,Eco Sleeve,Cosmetic Packaging,33,60,Electronics
+383,Recycled Jar,Pharma Packaging,42,50,Logistics
+384,Eco Tube,Pharma Packaging,91,10,Electronics
+385,Bio Packet,Shipping Container,38,90,Food & Beverage
+386,Eco Tube,Shipping Container,78,30,Logistics
+387,Bio Tray,Cosmetic Packaging,15,80,Cosmetics
+388,Plant-Based Cup,Retail Packaging,12,30,Cosmetics
+389,Paper Wrap,Shipping Container,62,80,Electronics
+390,Eco Sleeve,Cosmetic Packaging,62,10,Logistics
+391,Natural Canister,Food Packaging,70,80,Retail
+392,Recycled Jar,Electronics Packaging,89,60,Logistics
+393,Eco Tube,Cosmetic Packaging,30,50,Cosmetics
+394,Recyclable Cup,Retail Packaging,64,70,Logistics
+395,Sustainable Wrap,Shipping Container,74,20,Cosmetics
+396,Natural Canister,Electronics Packaging,29,90,Food & Beverage
+397,Compostable Box,Retail Packaging,63,80,Retail
+398,Eco Bottle,Shipping Container,85,10,Logistics
+399,Plant Fiber Container,Shipping Container,71,90,Logistics
+400,Recyclable Cup,Electronics Packaging,70,20,Food & Beverage
+401,Eco Bottle,Retail Packaging,9,80,Cosmetics
+402,Paper Wrap,Pharma Packaging,41,30,Retail
+403,Bio Tray,Food Packaging,13,90,Food & Beverage
+404,Eco Bottle,Food Packaging,90,60,Retail
+405,Paper Wrap,Electronics Packaging,36,10,Food & Beverage
+406,Plant Fiber Container,Shipping Container,19,80,Retail
+407,Bio Packet,Shipping Container,27,70,Retail
+408,Bio Packet,Cosmetic Packaging,55,30,Logistics
+409,Plant-Based Cup,Retail Packaging,67,70,Retail
+410,Eco Tube,Retail Packaging,6,60,Logistics
+411,Bio Packet,Pharma Packaging,18,10,Electronics
+412,Compostable Box,Retail Packaging,43,60,Electronics
+413,Natural Canister,Food Packaging,23,60,Retail
+414,Plant-Based Cup,Pharma Packaging,28,20,Retail
+415,Bio Tray,Cosmetic Packaging,1,20,Logistics
+416,Fiber Pouch,Shipping Container,44,50,Logistics
+417,Paper Wrap,Retail Packaging,10,30,Logistics
+418,Recycled Jar,Food Packaging,87,80,Logistics
+419,Bio Packet,Pharma Packaging,68,80,Pharmaceutical
+420,Green Mailer,Retail Packaging,22,60,Food & Beverage
+421,Eco Sleeve,Pharma Packaging,21,60,Pharmaceutical
+422,Paper Wrap,Cosmetic Packaging,61,70,Logistics
+423,Fiber Pouch,Pharma Packaging,3,70,Logistics
+424,Compostable Box,Electronics Packaging,98,90,Electronics
+425,Natural Canister,Cosmetic Packaging,16,70,Cosmetics
+426,Bio Tray,Shipping Container,21,90,Cosmetics
+427,Bio Tray,Electronics Packaging,15,50,Food & Beverage
+428,Compostable Box,Electronics Packaging,5,60,Cosmetics
+429,Bio Tray,Pharma Packaging,94,10,Retail
+430,Recycled Jar,Retail Packaging,27,90,Pharmaceutical
+431,Compostable Box,Cosmetic Packaging,42,50,Pharmaceutical
+432,Bio Tray,Electronics Packaging,28,90,Electronics
+433,Eco Tube,Cosmetic Packaging,60,70,Electronics
+434,Fiber Pouch,Pharma Packaging,84,70,Food & Beverage
+435,Recyclable Cup,Pharma Packaging,56,90,Logistics
+436,Green Mailer,Food Packaging,17,70,Electronics
+437,Eco Bottle,Electronics Packaging,43,90,Electronics
+438,Green Mailer,Pharma Packaging,4,90,Logistics
+439,Recycled Jar,Food Packaging,93,40,Pharmaceutical
+440,Bio Packet,Cosmetic Packaging,65,70,Logistics
+441,Fiber Pouch,Food Packaging,68,90,Food & Beverage
+442,Recyclable Cup,Pharma Packaging,32,80,Food & Beverage
+443,Paper Wrap,Food Packaging,85,80,Retail
+444,Eco Sleeve,Pharma Packaging,39,90,Retail
+445,Sustainable Wrap,Food Packaging,77,80,Retail
+446,Compostable Box,Electronics Packaging,93,60,Logistics
+447,Plant Fiber Container,Retail Packaging,22,20,Electronics
+448,Recycled Jar,Electronics Packaging,90,40,Retail
+449,Bio Tray,Shipping Container,34,30,Pharmaceutical
+450,Compostable Box,Electronics Packaging,72,60,Retail
+451,Bio Packet,Shipping Container,39,90,Cosmetics
+452,Fiber Pouch,Food Packaging,59,70,Retail
+453,Eco Tube,Electronics Packaging,5,10,Pharmaceutical
+454,Eco Tube,Pharma Packaging,3,10,Cosmetics
+455,Eco Bottle,Shipping Container,46,80,Cosmetics
+456,Sustainable Wrap,Electronics Packaging,33,20,Logistics
+457,Fiber Pouch,Cosmetic Packaging,75,80,Pharmaceutical
+458,Paper Wrap,Retail Packaging,60,90,Logistics
+459,Bio Packet,Cosmetic Packaging,1,70,Pharmaceutical
+460,Eco Bottle,Cosmetic Packaging,87,80,Cosmetics
+461,Green Mailer,Pharma Packaging,65,30,Logistics
+462,Compostable Box,Cosmetic Packaging,10,10,Logistics
+463,Natural Canister,Electronics Packaging,27,70,Electronics
+464,Eco Tube,Retail Packaging,69,30,Electronics
+465,Compostable Box,Food Packaging,57,70,Pharmaceutical
+466,Sustainable Wrap,Cosmetic Packaging,45,30,Pharmaceutical
+467,Paper Wrap,Shipping Container,84,70,Logistics
+468,Eco Tube,Cosmetic Packaging,5,90,Retail
+469,Compostable Box,Retail Packaging,78,70,Food & Beverage
+470,Plant Fiber Container,Cosmetic Packaging,16,60,Electronics
+471,Natural Canister,Shipping Container,30,90,Logistics
+472,Plant Fiber Container,Food Packaging,69,90,Retail
+473,Fiber Pouch,Cosmetic Packaging,50,60,Electronics
+474,Green Mailer,Electronics Packaging,4,90,Food & Beverage
+475,Compostable Box,Shipping Container,14,60,Food & Beverage
+476,Eco Sleeve,Electronics Packaging,63,20,Electronics
+477,Recyclable Cup,Electronics Packaging,29,40,Pharmaceutical
+478,Eco Sleeve,Retail Packaging,12,10,Logistics
+479,Paper Wrap,Cosmetic Packaging,85,70,Electronics
+480,Eco Sleeve,Pharma Packaging,17,50,Food & Beverage
+481,Green Mailer,Shipping Container,43,40,Retail
+482,Plant Fiber Container,Food Packaging,30,80,Logistics
+483,Recyclable Cup,Cosmetic Packaging,56,70,Electronics
+484,Bio Packet,Electronics Packaging,36,80,Electronics
+485,Compostable Box,Pharma Packaging,22,90,Electronics
+486,Green Mailer,Electronics Packaging,76,20,Food & Beverage
+487,Eco Tube,Cosmetic Packaging,14,50,Retail
+488,Recycled Jar,Retail Packaging,10,50,Cosmetics
+489,Fiber Pouch,Food Packaging,4,80,Cosmetics
+490,Compostable Box,Cosmetic Packaging,7,70,Logistics
+491,Plant Fiber Container,Pharma Packaging,67,50,Electronics
+492,Eco Sleeve,Cosmetic Packaging,8,60,Retail
+493,Plant-Based Cup,Electronics Packaging,56,50,Logistics
+494,Natural Canister,Shipping Container,91,90,Retail
+495,Paper Wrap,Pharma Packaging,98,90,Retail
+496,Recycled Jar,Food Packaging,65,90,Pharmaceutical
+497,Eco Bottle,Retail Packaging,61,60,Electronics
+498,Recycled Jar,Pharma Packaging,56,10,Logistics
+499,Recycled Jar,Food Packaging,78,40,Cosmetics
+500,Compostable Box,Pharma Packaging,25,90,Electronics
