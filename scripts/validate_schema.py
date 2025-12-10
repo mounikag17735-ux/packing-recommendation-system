@@ -2,7 +2,8 @@ import sqlite3
 from pathlib import Path
 
 # Path to the DB file
-DB_PATH = Path("data/packaging.db")
+DB_PATH = Path(__file__).resolve().parent.parent / "data" / "packaging.db"
+
 
 def print_schema():
     # Connect to database
@@ -36,3 +37,5 @@ def print_schema():
 
     conn.close()
     
+if __name__ == "__main__":
+    print_schema()
