@@ -10,10 +10,11 @@ CREATE TABLE materials (
 );
 
 CREATE TABLE products (
-    product_id INTEGER PRIMARY KEY,
-    product_name TEXT,
-    category TEXT,
-    weight REAL,
-    fragility_level TEXT,
-    industry TEXT
+    PRODUCT_ID INTEGER,
+    PRODUCT_NAME TEXT,
+    CATEGORY TEXT,
+    WEIGHT REAL,
+    FRAGILITY_LEVEL REAL,
+    INDUSTRY TEXT
 );
+
