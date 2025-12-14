@@ -66,9 +66,7 @@ if __name__ == "__main__":
     materials = handle_missing_values(materials, "Materials Dataset")
     products = handle_missing_values(products, "Products Dataset")
     
-    detect_outliers(materials, "Materials Dataset")
-    detect_outliers(products, "Products Dataset")
-    # 3 — Normalize numeric columns
+   
     materials = normalize_numerical(materials)
     products = normalize_numerical(products)
 
