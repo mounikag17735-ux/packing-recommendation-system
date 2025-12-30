@@ -95,3 +95,73 @@ To validate the quality of both original and engineered features, multiple valid
 **Observation:**
 - Engineered features showed meaningful correlations with original sustainability metrics
 - No extreme multicollinearity detected
+
+## 8. Machine Learning Dataset Preparation
+
+The Machine Learning Dataset Preparationis used to prepare the dataset for training machine learning models that predict cost efficiency and CO₂ impact of packaging materials.
+
+### 8.1 Select ML Features for Prediction
+- **Numeric Features:**  
+  - **Strength:** Indicates material durability and safety.  
+  - **Weight Capacity:** Maximum weight material can safely hold.  
+  - **Biodegradability Score:** Rate at which the material decomposes naturally.  
+  - **Recyclability Percentage:** How much of the material can be recycled.  
+  - **CO₂ Emission Score:** Environmental impact of producing the material.  
+
+- **Categorical Features (One-Hot Encoded):**  
+  - Material types such as Aluminum, Bioplastic-PLA, etc.  
+  - Industry categories such as Food & Beverage, Electronics, etc.  
+
+**Purpose:** These features represent material safety, suitability for shipping, and environmental impact, and serve as inputs for the ML models.
+
+### 8.2 Generate Target Values
+- **Cost Prediction:** Represents the cost-efficiency index of a material.  
+- **CO₂ Impact Prediction:** Represents the environmental impact of the material.  
+
+**Purpose:** Targets are the values that the ML models will learn to predict based on the input features.
+
+### 8.3 Split Data into Training and Testing Sets
+- **Training Set (80%)**: Used to train the ML models.  
+- **Testing Set (20%)**: Used to evaluate model performance on unseen data.  
+- **Reproducibility:** A fixed random seed ensures the data split can be repeated consistently.  
+
+**Purpose:** This separation ensures that model evaluation is unbiased and simulates performance on new data.
+
+### 8.4 Prepare Data Pipelines and Scaling
+- **Numeric Features Scaling:** Standardizes numeric values so all features are on a similar scale, improving model performance.  
+- **Categorical Features:** One-hot encoded features remain unchanged and are passed directly to the model.  
+- **Training Transformation:** Scaling parameters are learned from the training data.  
+- **Testing Transformation:** The same scaling parameters are applied to testing data.  
+
+**Outcome:** The processed features and target values are ready for ML model training, ensuring consistent input formats and better model accuracy.
+
+## 9. AI Recommendation Model
+
+ Training machine learning models to predict material cost-efficiency and environmental impact, and using these predictions to generate a ranking of recommended packaging materials.
+
+### 9.1 Train ML Models
+- **Random Forest Regressor (Cost Prediction):**  
+  - An ensemble-based regression model that predicts the cost-efficiency index of materials.  
+  - It uses multiple decision trees and averages their outputs to reduce overfitting and improve accuracy.
+
+- **XGBoost Regressor (CO₂ Footprint Prediction):**  
+  - Gradient boosting-based regression model that predicts the CO₂ impact index.  
+  - Efficiently handles feature interactions and provides high predictive accuracy.
+
+**Purpose:** These models learn patterns from the training dataset to accurately predict cost and environmental impact for new materials.
+
+### 9.2 Model Evaluation Metrics
+- **RMSE (Root Mean Squared Error):** Measures the average magnitude of prediction errors, penalizing larger errors more heavily.  
+- **MAE (Mean Absolute Error):** Measures the average absolute difference between predicted and actual values, giving a straightforward error magnitude.  
+- **R² Score (Coefficient of Determination):** Indicates the proportion of variance in the target explained by the model (1.0 means perfect prediction).
+
+**Purpose:** Evaluation metrics quantify how well the trained models are performing and ensure reliability for recommendations.
+
+### 9.3 Create Material Ranking System
+- **Predicted Scores:** Use the trained models to predict cost-efficiency and CO₂ impact for all materials.  
+- **Normalization:** Scale predictions between 0 and 1 to make cost and CO₂ scores comparable.  
+- **Final Recommendation Score:** Compute a weighted average of normalized cost and CO₂ scores to balance affordability and sustainability.  
+- **Ranking:** Materials are ranked based on the final recommendation score, with the lowest score indicating the most suitable option.
+
+**Outcome:** A ranked list of materials is generated, guiding selection of eco-friendly, cost-efficient, and safe packaging options.
+
