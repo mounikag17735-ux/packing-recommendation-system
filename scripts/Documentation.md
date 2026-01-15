@@ -165,3 +165,183 @@ The Machine Learning Dataset Preparationis used to prepare the dataset for train
 
 **Outcome:** A ranked list of materials is generated, guiding selection of eco-friendly, cost-efficient, and safe packaging options.
 
+## 10. Flask Backend API
+
+This module implements the Flask-based backend for the Packaging Recommendation System.  
+It provides secure REST APIs to handle product input, generate AI-driven packaging recommendations, compute environmental scores, and return structured JSON responses for frontend consumption.
+
+---
+
+### 10.1 Product Input Handling API
+
+The Product Input Handling API is designed to accept structured product information from the frontend UI in JSON format.
+
+**How it is built:**
+- Implemented using a Flask `POST` endpoint (`/recommend`)
+- Accepts product parameters such as:
+  - Eco priority
+  - Fragility level
+  - Industry category
+  - Product weight
+- Input validation is performed to ensure:
+  - JSON data is present
+  - Required fields are available
+- Default values are applied where inputs are missing
+
+The input data is stored in a Python dictionary and passed to the AI recommendation engine for further processing.
+
+**Key Technologies Used:**
+- Flask request handling
+- JSON parsing
+- Python dictionaries for data transfer
+
+---
+
+### 10.2 AI Material Recommendation API
+
+The AI Material Recommendation API generates optimal packaging material suggestions based on product characteristics and machine learning predictions.
+
+**How it is built:**
+- Uses a hybrid approach:
+  - Rule-based filtering
+  - Machine learning–based prediction
+- Rule-based filtering ensures:
+  - Material strength matches product fragility
+  - Weight capacity meets product requirements
+  - Industry category matches the product domain
+- After filtering, ML models predict:
+  - Estimated material cost
+  - Estimated CO₂ emissions
+- Materials are ranked based on a final recommendation score
+
+**Machine Learning Models Used:**
+- Random Forest Regressor for cost prediction
+- XGBoost Regressor for CO₂ impact prediction
+
+Pre-trained models are loaded using `joblib` for efficient inference.
+
+---
+
+### 10.3 Environmental Score Computation API
+
+The Environmental Score Computation logic evaluates the sustainability impact of each recommended material.
+
+**How it is built:**
+- Predicted cost and CO₂ values are normalized using min-max scaling
+- An `eco_priority` parameter (0–1) controls the importance of sustainability vs cost
+- Final recommendation score is calculated using:
+Final Score =
+(1 − eco_priority) × Cost_Score
+
+eco_priority × CO₂_Score
+
+### 10.4 Database Integration API
+
+The backend connects to a relational database to retrieve material data required for recommendations.
+
+**How it is built:**
+- SQLite database (`packaging.db`) is used for material storage
+- A `materials` table stores:
+  - Material properties
+  - Strength and weight limits
+  - Industry category
+- Database connection is handled using Python’s `sqlite3` module
+- Pandas is used to load SQL data into DataFrames for efficient filtering and processing
+
+### 10.5 Secure Endpoints and JSON Response Structure
+
+Security and consistency are enforced across all backend APIs.
+
+**Security Implementation:**
+- API key–based authentication is implemented
+- Clients must pass a valid key using the `X-API-KEY` header
+- Unauthorized requests receive a `401 Unauthorized` response
+
+**JSON Response Structure:**
+- All responses follow a standardized format:
+  - Status indicator
+  - Echo of input product data
+  - Recommendation count
+  - List of recommended materials
+- Each recommendation includes:
+  - Material name
+  - Rank
+  - Predicted cost
+  - Predicted CO₂
+  - Final score
+  - Explanation
+
+## 11. Frontend UI Development
+
+This module focuses on building a user-friendly frontend interface that allows users to interact with the Packaging Recommendation System.  
+The UI collects product inputs, communicates with the Flask backend, and displays AI-generated packaging recommendations in a structured and visually clear format.
+
+---
+
+### 11.1 User Interface Design Using HTML, CSS, and Bootstrap
+
+The frontend is developed using standard web technologies to ensure simplicity, responsiveness, and ease of maintenance.
+
+**How it is built:**
+- HTML is used to define the structure of the UI
+- CSS is used for styling, layout, and responsiveness
+- Custom styles are applied for:
+  - Page layout
+  - Form elements
+  - Recommendation tables
+  - Highlighting top-ranked materials
+- Bootstrap-style layout principles are followed to ensure responsiveness across devices
+
+The design prioritizes clarity and readability for both technical and non-technical users.
+
+---
+
+### 11.2 Input Forms for Product Parameters
+
+The UI includes an interactive input form that allows users to enter product-specific parameters.
+
+**Input fields provided:**
+- Eco Priority (range: 0–1)
+- Fragility Level (Low, Medium, High)
+- Industry Category (Electronics, Cosmetics, Food, etc.)
+- Product Weight
+
+**Implementation details:**
+- HTML form elements (`input`, `select`, `button`) are used
+- JavaScript captures form submission events
+- User input is converted into a JSON payload
+- The payload is sent to the Flask backend using the Fetch API
+
+This ensures seamless communication between the frontend and backend systems.
+
+---
+
+### 11.3 Display of AI Material Recommendations
+
+Once the backend processes the input, the frontend dynamically displays the recommended packaging materials.
+
+**How recommendations are displayed:**
+- The response is parsed from JSON format
+- Results are rendered dynamically using JavaScript
+- Each recommended material includes:
+  - Material name
+  - Rank
+  - Predicted cost
+  - Predicted CO₂ emission
+  - Explanation for recommendation
+
+The UI updates automatically without requiring page reloads, improving user experience.
+
+---
+
+### 11.4 Ranking Table for Recommendations
+
+A ranking table is used to present the recommended materials in an easy-to-compare format.
+
+**Table features:**
+- Materials are ordered by rank
+- The top-ranked material is visually highlighted
+- Tabular layout improves readability and comparison
+- Consistent column headers are used for clarity
+
+This allows users to quickly identify the most suitable packaging material.
