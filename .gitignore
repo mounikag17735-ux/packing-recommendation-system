@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+
+# Environment variables
+.env
+
+# Database files
+*.db
+
+# Reports
+reports/
+bi_dashboard/reports/
+
+# Charts
+bi_dashboard/charts/
+
+# Excel temp files
+~$*.xlsx
