@@ -1,39 +1,56 @@
 import sqlite3
 import pandas as pd
+import matplotlib
+matplotlib.use("Agg")  # ✅ IMPORTANT (no GUI)
 import matplotlib.pyplot as plt
+import os
 
-conn = sqlite3.connect("data/packaging.db")
-df = pd.read_sql("SELECT * FROM recommendation_logs", conn)
-conn.close()
+DB_PATH = "data/packaging.db"
+CHART_DIR = "static/charts"
 
-df["created_at"] = pd.to_datetime(df["created_at"])
+os.makedirs(CHART_DIR, exist_ok=True)
 
-material_usage = df["material_name"].value_counts()
+def generate_charts():
+    conn = sqlite3.connect(DB_PATH)
+    df = pd.read_sql("SELECT * FROM recommendation_logs", conn)
+    conn.close()
 
-plt.figure()
-material_usage.plot(kind="bar")
-plt.title("Material Usage Trend")
-plt.xlabel("Material")
-plt.ylabel("Number of Recommendations")
-plt.xticks(rotation=45, ha="right")
-plt.tight_layout()
-plt.show()
+    if df.empty:
+        return
 
-co2_trend = df.groupby(df["created_at"].dt.date)["predicted_co2"].mean()
+    df["created_at"] = pd.to_datetime(df["created_at"])
 
-plt.figure()
-co2_trend.plot(marker="o")
-plt.title("Average CO₂ Impact Over Time")
-plt.xlabel("Date")
-plt.ylabel("Predicted CO₂")
-plt.grid(True)
-plt.tight_layout()
-plt.show()
+    # ---------------- Material Usage ----------------
+    material_usage = df["material_name"].value_counts()
 
-plt.figure()
-plt.hist(df["predicted_cost"], bins=10)
-plt.title("Cost Distribution of Recommended Materials")
-plt.xlabel("Predicted Cost")
-plt.ylabel("Frequency")
-plt.tight_layout()
-plt.show()
+    plt.figure(figsize=(6, 4))
+    material_usage.plot(kind="bar")
+    plt.title("Material Usage Trend")
+    plt.xlabel("Material")
+    plt.ylabel("Count")
+    plt.tight_layout()
+    plt.savefig(f"{CHART_DIR}/material_usage.png")
+    plt.close()
+
+    # ---------------- CO2 Trend ----------------
+    co2_trend = df.groupby(df["created_at"].dt.date)["predicted_co2"].mean()
+
+    plt.figure(figsize=(6, 4))
+    co2_trend.plot(marker="o")
+    plt.title("Average CO₂ Impact Over Time")
+    plt.xlabel("Date")
+    plt.ylabel("Predicted CO₂")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(f"{CHART_DIR}/co2_trend.png")
+    plt.close()
+
+    # ---------------- Cost Distribution ----------------
+    plt.figure(figsize=(6, 4))
+    plt.hist(df["predicted_cost"], bins=10)
+    plt.title("Cost Distribution")
+    plt.xlabel("Predicted Cost")
+    plt.ylabel("Frequency")
+    plt.tight_layout()
+    plt.savefig(f"{CHART_DIR}/cost_distribution.png")
+    plt.close()

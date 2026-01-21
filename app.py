@@ -3,7 +3,12 @@ import joblib
 import pandas as pd
 import sqlite3
 import os
-
+from analytics.bi_metrics import get_bi_metrics
+from analytics.bi_charts import generate_charts
+from flask import send_file
+from bi_dashboard.export_reports import load_logs, export_excel_report
+from bi_dashboard.generate_pdf_report import load_logs as load_logs_pdf
+from bi_dashboard.generate_pdf_report import generate_pdf
 # -------------------- CONFIG --------------------
 API_KEY = os.getenv("API_KEY", "packaging_ai_2026_secret")
 DB_PATH = "data/packaging.db"
@@ -71,6 +76,40 @@ app = Flask(__name__)
 @app.route("/", methods=["GET"])
 def ui():
     return render_template("index.html")
+
+@app.route("/dashboard")
+def dashboard():
+    # Generate charts (saved as PNGs)
+    generate_charts()
+
+    # Get BI metrics
+    metrics = get_bi_metrics()
+
+    return render_template(
+        "dashboard.html",
+        metrics=metrics
+    )
+
+@app.route("/export/excel")
+def export_excel():
+    df = load_logs()
+
+    if df.empty:
+        return jsonify({"error": "No data available"}), 400
+
+    export_excel_report(df)
+
+    latest_file = sorted(os.listdir("reports"))[-1]
+    return send_file(
+        f"reports/{latest_file}",
+        as_attachment=True
+    )
+
+@app.route("/export/pdf")
+def export_pdf():
+    path = generate_pdf()
+    return send_file(path, as_attachment=True)
+
 
 @app.route("/health", methods=["GET"])
 def health():
