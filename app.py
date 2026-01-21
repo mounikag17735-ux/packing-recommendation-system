@@ -1,20 +1,45 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, send_file
 import joblib
 import pandas as pd
 import sqlite3
 import os
+
+# -------------------- RENDER SAFE MATPLOTLIB --------------------
+import matplotlib
+matplotlib.use("Agg")
+
+# -------------------- BI / UTILS --------------------
 from analytics.bi_metrics import get_bi_metrics
 from analytics.bi_charts import generate_charts
-from flask import send_file
 from bi_dashboard.export_reports import load_logs, export_excel_report
-from bi_dashboard.generate_pdf_report import load_logs as load_logs_pdf
 from bi_dashboard.generate_pdf_report import generate_pdf
 from init_db import init_db
 
+# -------------------- INIT DB --------------------
 init_db()
+
 # -------------------- CONFIG --------------------
 API_KEY = os.getenv("API_KEY", "packaging_ai_2026_secret")
 DB_PATH = "data/packaging.db"
+
+# -------------------- FLASK APP --------------------
+app = Flask(__name__)
+
+# -------------------- GLOBAL STATE --------------------
+df = None
+preprocessor = None
+cost_model = None
+co2_model = None
+X = None
+
+DEFAULT_MATERIAL = {
+    "MATERIAL_TYPE": "Standard Packaging",
+    "Predicted_Cost": None,
+    "Predicted_CO2": None,
+    "Final_Score": None,
+    "Rank": 1,
+    "Explanation": "Fallback recommendation due to insufficient matching data"
+}
 
 # -------------------- DB HELPERS --------------------
 def get_db_connection():
@@ -22,22 +47,27 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
+
 def load_materials_from_db():
     conn = get_db_connection()
     try:
-        df = pd.read_sql("SELECT * FROM materials", conn)
-    except Exception:
-        df = pd.DataFrame()
+        df_local = pd.read_sql("SELECT * FROM materials", conn)
+        print(f"✅ Loaded {len(df_local)} materials from DB")
+        return df_local
+    except Exception as e:
+        print("⚠️ Failed loading materials:", e)
+        return pd.DataFrame()
     finally:
         conn.close()
-    return df
 
 
 def log_recommendation(input_product, recommended_materials):
+    if not recommended_materials:
+        return
+
     conn = get_db_connection()
     cursor = conn.cursor()
-    if df.empty:
-        return pd.DataFrame([DEFAULT_MATERIAL])
+
     for mat in recommended_materials:
         cursor.execute("""
             INSERT INTO recommendation_logs (
@@ -62,71 +92,49 @@ def log_recommendation(input_product, recommended_materials):
     conn.commit()
     conn.close()
 
-# -------------------- ML ARTIFACTS --------------------
-preprocessor = None
-cost_model = None
-co2_model = None
-X = None
 
-
+# -------------------- ML LOADER --------------------
 def load_models():
     global preprocessor, cost_model, co2_model, X
 
-    if preprocessor is None:
-        try:
-            preprocessor = joblib.load("artifacts/preprocessor.pkl")
-            cost_model = joblib.load("artifacts/cost_model.pkl")
-            co2_model = joblib.load("artifacts/co2_model.pkl")
-            X = joblib.load("artifacts/X.pkl")
-            print("✅ ML models loaded successfully")
-        except FileNotFoundError:
-            print("⚠️ ML artifacts not found. Running in fallback mode.")
+    if preprocessor is not None:
+        return True
 
-df = None
+    try:
+        preprocessor = joblib.load("artifacts/preprocessor.pkl")
+        cost_model = joblib.load("artifacts/cost_model.pkl")
+        co2_model = joblib.load("artifacts/co2_model.pkl")
+        X = joblib.load("artifacts/X.pkl")
+        print("✅ ML models loaded")
+        return True
+    except Exception as e:
+        print("⚠️ ML models not available, fallback mode:", e)
+        return False
 
-DEFAULT_MATERIAL = {
-    "MATERIAL_TYPE": "Standard Packaging",
-    "Predicted_Cost": None,
-    "Predicted_CO2": None,
-    "Final_Score": None,
-    "Rank": 1,
-    "Explanation": "Fallback recommendation due to insufficient matching data"
-}
 
-# -------------------- FLASK APP --------------------
-app = Flask(__name__)
-
-@app.route("/", methods=["GET"])
+# -------------------- ROUTES --------------------
+@app.route("/")
 def ui():
     return render_template("index.html")
 
+
 @app.route("/dashboard")
 def dashboard():
-    # Generate charts (saved as PNGs)
     generate_charts()
-
-    # Get BI metrics
     metrics = get_bi_metrics()
+    return render_template("dashboard.html", metrics=metrics)
 
-    return render_template(
-        "dashboard.html",
-        metrics=metrics
-    )
 
 @app.route("/export/excel")
 def export_excel():
-    df = load_logs()
-
-    if df.empty:
+    df_logs = load_logs()
+    if df_logs.empty:
         return jsonify({"error": "No data available"}), 400
 
-    export_excel_report(df)
-
+    export_excel_report(df_logs)
     latest_file = sorted(os.listdir("reports"))[-1]
-    return send_file(
-        f"reports/{latest_file}",
-        as_attachment=True
-    )
+    return send_file(f"reports/{latest_file}", as_attachment=True)
+
 
 @app.route("/export/pdf")
 def export_pdf():
@@ -134,48 +142,47 @@ def export_pdf():
     return send_file(path, as_attachment=True)
 
 
-@app.route("/health", methods=["GET"])
+@app.route("/health")
 def health():
-    return jsonify({
-        "status": "success",
-        "message": "Packaging Recommendation API is running"
-    })
+    return jsonify({"status": "ok"})
+
 
 @app.route("/recommend", methods=["POST"])
 def recommend_material():
     api_key = request.headers.get("X-API-KEY")
     if api_key != API_KEY:
-        return jsonify({"status": "error", "message": "Unauthorized"}), 401
+        return jsonify({"error": "Unauthorized"}), 401
 
     product_input = request.get_json()
     if not product_input:
-        return jsonify({"status": "error", "message": "No input data provided"}), 400
+        return jsonify({"error": "No input provided"}), 400
 
-    top_n = 5
+    recommendations_df = generate_ai_recommendations(product_input)
+    formatted = format_recommendation_response(recommendations_df)
 
-    recommendations_df = generate_ai_recommendations(product_input, top_n)
-    formatted_response = format_recommendation_response(recommendations_df)
-
-    # Log once (correct)
-    log_recommendation(product_input, formatted_response)
+    log_recommendation(product_input, formatted)
 
     return jsonify({
         "status": "success",
-        "input_product": product_input,
-        "recommendation_count": top_n,
-        "recommended_materials": formatted_response
+        "recommendation_count": len(formatted),
+        "recommended_materials": formatted
     })
+
 
 # -------------------- AI LOGIC --------------------
 def generate_ai_recommendations(product_input, top_n=5):
     global df
+
     if df is None:
         df = load_materials_from_db()
-    load_models()
+
+    if df.empty or not load_models():
+        return pd.DataFrame([DEFAULT_MATERIAL])
+
     eco_priority = float(product_input.get("eco_priority", 0.5))
     fragility = product_input.get("fragility_level", "medium").lower()
     product_weight = float(product_input.get("product_weight", 0))
-    industry = product_input.get("industry", "electronics").lower()
+    industry = product_input.get("industry", "").lower()
 
     strength_map = {"low": 40, "medium": 60, "high": 80}
     min_strength = strength_map.get(fragility, 60)
@@ -183,9 +190,7 @@ def generate_ai_recommendations(product_input, top_n=5):
     filtered_df = df[
         (df["STRENGTH"] >= min_strength) &
         (df["WEIGHT_CAPACITY"] >= product_weight) &
-        (df["INDUSTRY_CATEGORY"]
-            .str.lower()
-            .str.contains(industry, na=False))
+        (df["INDUSTRY_CATEGORY"].str.lower().str.contains(industry, na=False))
     ].copy()
 
     if filtered_df.empty:
@@ -197,70 +202,33 @@ def generate_ai_recommendations(product_input, top_n=5):
     filtered_df["Predicted_Cost"] = cost_model.predict(X_processed)
     filtered_df["Predicted_CO2"] = co2_model.predict(X_processed)
 
-    cost_range = filtered_df["Predicted_Cost"].max() - filtered_df["Predicted_Cost"].min()
-    co2_range = filtered_df["Predicted_CO2"].max() - filtered_df["Predicted_CO2"].min()
-
-    filtered_df["Cost_Score"] = 0 if cost_range == 0 else (
-        (filtered_df["Predicted_Cost"] - filtered_df["Predicted_Cost"].min()) / cost_range
-    )
-
-    filtered_df["CO2_Score"] = 0 if co2_range == 0 else (
-        (filtered_df["Predicted_CO2"] - filtered_df["Predicted_CO2"].min()) / co2_range
-    )
+    cost_norm = filtered_df["Predicted_Cost"].max() - filtered_df["Predicted_Cost"].min()
+    co2_norm = filtered_df["Predicted_CO2"].max() - filtered_df["Predicted_CO2"].min()
 
     filtered_df["Final_Score"] = (
-        (1 - eco_priority) * filtered_df["Cost_Score"] +
-        eco_priority * filtered_df["CO2_Score"]
+        (1 - eco_priority) * (filtered_df["Predicted_Cost"] - filtered_df["Predicted_Cost"].min()) / (cost_norm or 1) +
+        eco_priority * (filtered_df["Predicted_CO2"] - filtered_df["Predicted_CO2"].min()) / (co2_norm or 1)
     )
 
-    filtered_df["Rank"] = (
-        filtered_df["Final_Score"]
-        .rank(method="first", ascending=True)
-        .astype(int)
-    )
-
-    median_cost = filtered_df["Predicted_Cost"].median()
-    median_co2 = filtered_df["Predicted_CO2"].median()
-
-    filtered_df["Explanation"] = filtered_df.apply(
-        lambda row: generate_explanation(row, eco_priority, median_cost, median_co2),
-        axis=1
-    )
+    filtered_df["Rank"] = filtered_df["Final_Score"].rank(method="first").astype(int)
 
     return filtered_df.sort_values("Rank").head(top_n).reset_index(drop=True)
 
-def generate_explanation(row, eco_priority, median_cost, median_co2):
-    reasons = []
-
-    if row["Predicted_Cost"] <= median_cost:
-        reasons.append("low predicted cost")
-
-    if row["Predicted_CO2"] <= median_co2:
-        reasons.append("low carbon footprint")
-
-    if eco_priority > 0.7:
-        reasons.append("aligned with high eco priority")
-
-    return "Recommended due to " + ", ".join(reasons)
 
 # -------------------- RESPONSE FORMAT --------------------
 def format_recommendation_response(df):
-    formatted = []
-
+    results = []
     for _, row in df.iterrows():
-        formatted.append({
+        results.append({
             "material_name": row.get("MATERIAL_TYPE", "Standard Packaging"),
             "rank": int(row.get("Rank", 1)),
-            "predicted_cost": round(row["Predicted_Cost"], 2)
-                if pd.notna(row.get("Predicted_Cost")) else None,
-            "predicted_co2": round(row["Predicted_CO2"], 2)
-                if pd.notna(row.get("Predicted_CO2")) else None,
-            "final_score": round(row["Final_Score"], 4)
-                if pd.notna(row.get("Final_Score")) else None,
-            "explanation": row.get("Explanation")
+            "predicted_cost": None if pd.isna(row.get("Predicted_Cost")) else round(row["Predicted_Cost"], 2),
+            "predicted_co2": None if pd.isna(row.get("Predicted_CO2")) else round(row["Predicted_CO2"], 2),
+            "final_score": None if pd.isna(row.get("Final_Score")) else round(row["Final_Score"], 4),
+            "explanation": row.get("Explanation", DEFAULT_MATERIAL["Explanation"])
         })
+    return results
 
-    return formatted
 
 # -------------------- RUN --------------------
 if __name__ == "__main__":
