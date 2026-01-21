@@ -39,12 +39,29 @@ def init_db():
 
     if count == 0:
         df = pd.read_csv("data/materials_data.csv")
-        df[[
+        REQUIRED_COLUMNS = [
             "MATERIAL_TYPE",
             "STRENGTH",
             "WEIGHT_CAPACITY",
             "INDUSTRY_CATEGORY"
-        ]].to_sql("materials", conn, if_exists="append", index=False)
+        ]
+
+        missing = [c for c in REQUIRED_COLUMNS if c not in df.columns]
+
+        if missing:
+            print("❌ Missing columns in materials CSV:", missing)
+            print("Available columns:", list(df.columns))
+            return  # DO NOT CRASH APP
+
+        df[REQUIRED_COLUMNS].to_sql(
+            "materials",
+            conn,
+            if_exists="append",
+            index=False
+        )
+
+        print("✅ Materials table initialized")
+
 
     conn.commit()
     conn.close()
