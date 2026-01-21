@@ -1,22 +1,40 @@
+# ========================
 # Python
+# ========================
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 venv/
 
-# Environment variables
+# ========================
+# Environment
+# ========================
 .env
 
+# ========================
 # Database files
+# ========================
 *.db
+*.sqlite3
 
-# Reports
+# ========================
+# Reports & analytics
+# ========================
 reports/
-bi_dashboard/reports/
 
-# Charts
-bi_dashboard/charts/
+# ========================
+# Generated charts (DO NOT COMMIT)
+# ========================
+static/charts/
+static/*.png
 
-# Excel temp files
+# ========================
+# Excel / Office temp files
+# ========================
 ~$*.xlsx
+
+# ========================
+# IDE
+# ========================
+.vscode/
