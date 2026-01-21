@@ -40,18 +40,30 @@ def init_db():
         )
     """)
 
-    # ---------- LOAD & NORMALIZE CSV ----------
+    # ---------- LOAD CSV ----------
     df = pd.read_csv("data/materials_cleaned.csv")
 
-    df.columns = (
-        df.columns
-        .str.strip()
-        .str.upper()
-    )
-
+    # Normalize column names
+    df.columns = df.columns.str.strip().str.upper()
     print("CSV columns:", df.columns.tolist())
 
-    # ---------- INSERT DATA ----------
+    # ---------- DERIVE MATERIAL_TYPE ----------
+    material_cols = [c for c in df.columns if c.startswith("MATERIAL_TYPE_")]
+    df["MATERIAL_TYPE"] = (
+        df[material_cols]
+        .idxmax(axis=1)
+        .str.replace("MATERIAL_TYPE_", "", regex=False)
+    )
+
+    # ---------- DERIVE INDUSTRY_CATEGORY ----------
+    industry_cols = [c for c in df.columns if c.startswith("INDUSTRY_CATEGORY_")]
+    df["INDUSTRY_CATEGORY"] = (
+        df[industry_cols]
+        .idxmax(axis=1)
+        .str.replace("INDUSTRY_CATEGORY_", "", regex=False)
+    )
+
+    # ---------- FINAL COLUMNS ----------
     df_required = df[[
         "MATERIAL_ID",
         "MATERIAL_TYPE",
@@ -63,12 +75,7 @@ def init_db():
         "INDUSTRY_CATEGORY"
     ]]
 
-    df_required.to_sql(
-        "materials",
-        conn,
-        if_exists="append",
-        index=False
-    )
+    df_required.to_sql("materials", conn, if_exists="append", index=False)
 
     print(f"✅ FORCE seeded {len(df_required)} materials into DB")
 
