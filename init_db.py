@@ -38,23 +38,37 @@ def init_db():
     """)
 
     # ---------- SEED MATERIALS ----------
-    count = cursor.execute("SELECT COUNT(*) FROM materials").fetchone()[0]
+    # 🔥 DROP & RECREATE MATERIALS TABLE
+    cursor.execute("DROP TABLE IF EXISTS materials")
 
-    if count == 0:
-        df = pd.read_csv("data/materials_cleaned.csv")
+    cursor.execute("""
+        CREATE TABLE materials (
+            MATERIAL_ID INTEGER,
+            MATERIAL_TYPE TEXT,
+            STRENGTH REAL,
+            WEIGHT_CAPACITY REAL,
+            BIODEGRADABILITY_SCORE REAL,
+            Co2_EMISSION_SCORE REAL,
+            RECYCLABILITY_PERCENTAGE REAL,
+            INDUSTRY_CATEGORY TEXT
+        )
+    """)
 
-        df[[
-            "MATERIAL_ID",
-            "MATERIAL_TYPE",
-            "STRENGTH",
-            "WEIGHT_CAPACITY",
-            "BIODEGRADABILITY_SCORE",
-            "Co2_EMISSION_SCORE",
-            "RECYCLABILITY_PERCENTAGE",
-            "INDUSTRY_CATEGORY"
-        ]].to_sql("materials", conn, if_exists="append", index=False)
+    df = pd.read_csv("data/materials_cleaned.csv")
 
-        print(f"✅ Seeded {len(df)} materials into DB")
+    df[[
+        "MATERIAL_ID",
+        "MATERIAL_TYPE",
+        "STRENGTH",
+        "WEIGHT_CAPACITY",
+        "BIODEGRADABILITY_SCORE",
+        "Co2_EMISSION_SCORE",
+        "RECYCLABILITY_PERCENTAGE",
+        "INDUSTRY_CATEGORY"
+    ]].to_sql("materials", conn, if_exists="append", index=False)
+
+    print(f"✅ FORCE seeded {len(df)} materials into DB")
+
 
     conn.commit()
     conn.close()
