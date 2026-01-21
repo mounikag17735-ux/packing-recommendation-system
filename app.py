@@ -157,7 +157,7 @@ def recommend_material():
     if not product_input:
         return jsonify({"error": "No input provided"}), 400
 
-    recommendations_df = generate_ai_recommendations(product_input)
+    recommendations_df = generate_ai_recommendations(product_input, top_n=5)
     formatted = format_recommendation_response(recommendations_df)
 
     log_recommendation(product_input, formatted)
@@ -212,6 +212,8 @@ def generate_ai_recommendations(product_input, top_n=5):
 
     filtered_df["Rank"] = filtered_df["Final_Score"].rank(method="first").astype(int)
 
+    filtered_df["Explanation"] = "Balanced cost & sustainability"
+
     return filtered_df.sort_values("Rank").head(top_n).reset_index(drop=True)
 
 
@@ -225,7 +227,7 @@ def format_recommendation_response(df):
             "predicted_cost": None if pd.isna(row.get("Predicted_Cost")) else round(row["Predicted_Cost"], 2),
             "predicted_co2": None if pd.isna(row.get("Predicted_CO2")) else round(row["Predicted_CO2"], 2),
             "final_score": None if pd.isna(row.get("Final_Score")) else round(row["Final_Score"], 4),
-            "explanation": row.get("Explanation", DEFAULT_MATERIAL["Explanation"])
+            "explanation": row.get("Explanation")
         })
     return results
 
