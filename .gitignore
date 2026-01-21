@@ -19,7 +19,7 @@ venv/
 *.sqlite3
 
 # ========================
-# Reports & analytics
+# Reports & exports
 # ========================
 reports/
 
@@ -30,11 +30,33 @@ static/charts/
 static/*.png
 
 # ========================
+# Raw / intermediate data (prevent accidental pulls)
+# ========================
+data/raw/
+data/*_cleaned.csv
+data/*_scaled.csv
+data/*_features.csv
+
+# ========================
+# ML training artifacts (keep only inference models)
+# ========================
+artifacts/X*.pkl
+artifacts/y_*.pkl
+artifacts/df.pkl
+
+# ========================
 # Excel / Office temp files
 # ========================
 ~$*.xlsx
+*.xlsx
 
 # ========================
 # IDE
 # ========================
 .vscode/
+
+# ========================
+# OS
+# ========================
+.DS_Store
+Thumbs.db
