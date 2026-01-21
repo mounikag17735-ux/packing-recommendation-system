@@ -9,11 +9,9 @@ def init_db():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
-    # ---------- DROP & RECREATE MATERIALS TABLE ----------
-    cursor.execute("DROP TABLE IF EXISTS materials")
-
+    # ---------- CREATE TABLES (NO DROP) ----------
     cursor.execute("""
-        CREATE TABLE materials (
+        CREATE TABLE IF NOT EXISTS materials (
             MATERIAL_ID INTEGER,
             MATERIAL_TYPE TEXT,
             STRENGTH REAL,
@@ -25,7 +23,6 @@ def init_db():
         )
     """)
 
-    # ---------- CREATE LOG TABLE ----------
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS recommendation_logs (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -40,15 +37,27 @@ def init_db():
         )
     """)
 
+    # ---------- CHECK IF MATERIALS ALREADY SEEDED ----------
+    cursor.execute("SELECT COUNT(*) FROM materials")
+    if cursor.fetchone()[0] > 0:
+        print("ℹ️ Materials already exist — skipping seed")
+        conn.close()
+        return
+
     # ---------- LOAD CSV ----------
     df = pd.read_csv("data/materials_cleaned.csv")
-
-    # Normalize column names
     df.columns = df.columns.str.strip().str.upper()
+
     print("CSV columns:", df.columns.tolist())
 
-    # ---------- DERIVE MATERIAL_TYPE ----------
+    # ---------- SAFETY CHECK ----------
     material_cols = [c for c in df.columns if c.startswith("MATERIAL_TYPE_")]
+    industry_cols = [c for c in df.columns if c.startswith("INDUSTRY_CATEGORY_")]
+
+    if not material_cols or not industry_cols:
+        raise ValueError("Required one-hot columns missing in CSV")
+
+    # ---------- DERIVE MATERIAL_TYPE ----------
     df["MATERIAL_TYPE"] = (
         df[material_cols]
         .idxmax(axis=1)
@@ -56,7 +65,6 @@ def init_db():
     )
 
     # ---------- DERIVE INDUSTRY_CATEGORY ----------
-    industry_cols = [c for c in df.columns if c.startswith("INDUSTRY_CATEGORY_")]
     df["INDUSTRY_CATEGORY"] = (
         df[industry_cols]
         .idxmax(axis=1)
@@ -77,7 +85,7 @@ def init_db():
 
     df_required.to_sql("materials", conn, if_exists="append", index=False)
 
-    print(f"✅ FORCE seeded {len(df_required)} materials into DB")
+    print(f"✅ Seeded {len(df_required)} materials into DB")
 
     conn.commit()
     conn.close()

@@ -1,36 +1,64 @@
 # ========================
-# Python
+# Python bytecode / cache
 # ========================
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# ========================
+# Virtual environments
+# ========================
 venv/
+.env/
+.env.*
 
 # ========================
-# Environment
+# OS / Editor files
 # ========================
-.env
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
 
 # ========================
-# Database files
+# Logs
+# ========================
+*.log
+
+# ========================
+# Databases (runtime only)
 # ========================
 *.db
 *.sqlite3
 
 # ========================
-# Reports & exports
+# Reports & exports (runtime)
 # ========================
 reports/
+*.pdf
+*.xlsx
+*.csv
 
 # ========================
-# Generated charts (DO NOT COMMIT)
+# Generated charts (runtime)
 # ========================
 static/charts/
 static/*.png
 
 # ========================
-# Raw / intermediate data (prevent accidental pulls)
+# ML training artifacts (DO NOT COMMIT)
+# ========================
+artifacts/X_train.pkl
+artifacts/X_test.pkl
+artifacts/y_co2_train.pkl
+artifacts/y_co2_test.pkl
+artifacts/y_cost_train.pkl
+artifacts/y_cost_test.pkl
+artifacts/df.pkl
+
+# ========================
+# Raw / intermediate datasets
 # ========================
 data/raw/
 data/*_cleaned.csv
@@ -38,25 +66,24 @@ data/*_scaled.csv
 data/*_features.csv
 
 # ========================
-# ML training artifacts (keep only inference models)
+# Model training scripts outputs
 # ========================
-artifacts/X*.pkl
-artifacts/y_*.pkl
-artifacts/df.pkl
+*.joblib
+*.pkl~
 
 # ========================
-# Excel / Office temp files
+# Temporary / backup files
 # ========================
-~$*.xlsx
-*.xlsx
+*~
+*.bak
+*.tmp
 
 # ========================
-# IDE
+# Jupyter
 # ========================
-.vscode/
+.ipynb_checkpoints/
 
 # ========================
-# OS
+# System
 # ========================
-.DS_Store
-Thumbs.db
+*.swp
