@@ -54,10 +54,24 @@ def log_recommendation(input_product, recommended_materials):
     conn.close()
 
 # -------------------- ML ARTIFACTS --------------------
-preprocessor = joblib.load("artifacts/preprocessor.pkl")
-cost_model = joblib.load("artifacts/cost_model.pkl")
-co2_model = joblib.load("artifacts/co2_model.pkl")
-X = joblib.load("artifacts/X.pkl")
+preprocessor = None
+cost_model = None
+co2_model = None
+X = None
+
+
+def load_models():
+    global preprocessor, cost_model, co2_model, X
+
+    if preprocessor is None:
+        try:
+            preprocessor = joblib.load("artifacts/preprocessor.pkl")
+            cost_model = joblib.load("artifacts/cost_model.pkl")
+            co2_model = joblib.load("artifacts/co2_model.pkl")
+            X = joblib.load("artifacts/X.pkl")
+            print("✅ ML models loaded successfully")
+        except FileNotFoundError:
+            print("⚠️ ML artifacts not found. Running in fallback mode.")
 
 df = load_materials_from_db()
 
@@ -145,6 +159,7 @@ def recommend_material():
 
 # -------------------- AI LOGIC --------------------
 def generate_ai_recommendations(product_input, top_n=5):
+    load_models()
     eco_priority = float(product_input.get("eco_priority", 0.5))
     fragility = product_input.get("fragility_level", "medium").lower()
     product_weight = float(product_input.get("product_weight", 0))
