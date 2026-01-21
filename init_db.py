@@ -9,20 +9,23 @@ def init_db():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
-    # ---------- CREATE TABLES ----------
+    # ---------- DROP & RECREATE MATERIALS TABLE ----------
+    cursor.execute("DROP TABLE IF EXISTS materials")
+
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS materials (
+        CREATE TABLE materials (
             MATERIAL_ID INTEGER,
             MATERIAL_TYPE TEXT,
             STRENGTH REAL,
             WEIGHT_CAPACITY REAL,
             BIODEGRADABILITY_SCORE REAL,
-            Co2_EMISSION_SCORE REAL,
+            CO2_EMISSION_SCORE REAL,
             RECYCLABILITY_PERCENTAGE REAL,
             INDUSTRY_CATEGORY TEXT
         )
     """)
 
+    # ---------- CREATE LOG TABLE ----------
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS recommendation_logs (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -37,38 +40,37 @@ def init_db():
         )
     """)
 
-    # ---------- SEED MATERIALS ----------
-    # 🔥 DROP & RECREATE MATERIALS TABLE
-    cursor.execute("DROP TABLE IF EXISTS materials")
-
-    cursor.execute("""
-        CREATE TABLE materials (
-            MATERIAL_ID INTEGER,
-            MATERIAL_TYPE TEXT,
-            STRENGTH REAL,
-            WEIGHT_CAPACITY REAL,
-            BIODEGRADABILITY_SCORE REAL,
-            Co2_EMISSION_SCORE REAL,
-            RECYCLABILITY_PERCENTAGE REAL,
-            INDUSTRY_CATEGORY TEXT
-        )
-    """)
-
+    # ---------- LOAD & NORMALIZE CSV ----------
     df = pd.read_csv("data/materials_cleaned.csv")
 
-    df[[
+    df.columns = (
+        df.columns
+        .str.strip()
+        .str.upper()
+    )
+
+    print("CSV columns:", df.columns.tolist())
+
+    # ---------- INSERT DATA ----------
+    df_required = df[[
         "MATERIAL_ID",
         "MATERIAL_TYPE",
         "STRENGTH",
         "WEIGHT_CAPACITY",
         "BIODEGRADABILITY_SCORE",
-        "Co2_EMISSION_SCORE",
+        "CO2_EMISSION_SCORE",
         "RECYCLABILITY_PERCENTAGE",
         "INDUSTRY_CATEGORY"
-    ]].to_sql("materials", conn, if_exists="append", index=False)
+    ]]
 
-    print(f"✅ FORCE seeded {len(df)} materials into DB")
+    df_required.to_sql(
+        "materials",
+        conn,
+        if_exists="append",
+        index=False
+    )
 
+    print(f"✅ FORCE seeded {len(df_required)} materials into DB")
 
     conn.commit()
     conn.close()
