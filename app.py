@@ -9,6 +9,9 @@ from flask import send_file
 from bi_dashboard.export_reports import load_logs, export_excel_report
 from bi_dashboard.generate_pdf_report import load_logs as load_logs_pdf
 from bi_dashboard.generate_pdf_report import generate_pdf
+from init_db import init_db
+
+init_db()
 # -------------------- CONFIG --------------------
 API_KEY = os.getenv("API_KEY", "packaging_ai_2026_secret")
 DB_PATH = "data/packaging.db"
@@ -21,14 +24,20 @@ def get_db_connection():
 
 def load_materials_from_db():
     conn = get_db_connection()
-    df = pd.read_sql("SELECT * FROM materials", conn)
-    conn.close()
+    try:
+        df = pd.read_sql("SELECT * FROM materials", conn)
+    except Exception:
+        df = pd.DataFrame()
+    finally:
+        conn.close()
     return df
+
 
 def log_recommendation(input_product, recommended_materials):
     conn = get_db_connection()
     cursor = conn.cursor()
-
+    if df.empty:
+        return pd.DataFrame([DEFAULT_MATERIAL])
     for mat in recommended_materials:
         cursor.execute("""
             INSERT INTO recommendation_logs (
@@ -73,7 +82,7 @@ def load_models():
         except FileNotFoundError:
             print("⚠️ ML artifacts not found. Running in fallback mode.")
 
-df = load_materials_from_db()
+df = None
 
 DEFAULT_MATERIAL = {
     "MATERIAL_TYPE": "Standard Packaging",
@@ -159,6 +168,9 @@ def recommend_material():
 
 # -------------------- AI LOGIC --------------------
 def generate_ai_recommendations(product_input, top_n=5):
+    global df
+    if df is None:
+        df = load_materials_from_db()
     load_models()
     eco_priority = float(product_input.get("eco_priority", 0.5))
     fragility = product_input.get("fragility_level", "medium").lower()
