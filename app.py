@@ -3,7 +3,6 @@ import joblib
 import pandas as pd
 import sqlite3
 import os
-import xgboost as xgb   # 🔥 NEW
 
 # -------------------- RENDER SAFE MATPLOTLIB --------------------
 import matplotlib
@@ -55,46 +54,11 @@ def load_materials_from_db():
         df_local = pd.read_sql("SELECT * FROM materials", conn)
         print(f"✅ Loaded {len(df_local)} materials from DB")
         return df_local
-    except Exception as e:
-        print("⚠️ Failed loading materials:", e)
-        return pd.DataFrame()
     finally:
         conn.close()
 
 
-def log_recommendation(input_product, recommended_materials):
-    if not recommended_materials:
-        return
-
-    conn = get_db_connection()
-    cursor = conn.cursor()
-
-    for mat in recommended_materials:
-        cursor.execute("""
-            INSERT INTO recommendation_logs (
-                material_name,
-                predicted_cost,
-                predicted_co2,
-                eco_priority,
-                fragility_level,
-                industry,
-                product_weight
-            ) VALUES (?, ?, ?, ?, ?, ?, ?)
-        """, (
-            mat["material_name"],
-            mat["predicted_cost"],
-            mat["predicted_co2"],
-            input_product.get("eco_priority"),
-            input_product.get("fragility_level"),
-            input_product.get("industry"),
-            input_product.get("product_weight")
-        ))
-
-    conn.commit()
-    conn.close()
-
-
-# -------------------- ML LOADER (FIXED) --------------------
+# -------------------- ML LOADER (FINAL & CORRECT) --------------------
 def load_models():
     global preprocessor, cost_model, co2_model, X
 
@@ -105,14 +69,11 @@ def load_models():
         preprocessor = joblib.load("artifacts/preprocessor.pkl")
         X = joblib.load("artifacts/X.pkl")
 
-        # 🔥 LOAD AS CPU-SAFE BOOSTERS
-        cost_model = xgb.Booster()
-        cost_model.load_model("artifacts/cost_model.pkl")
+        # ✅ LOAD SKLEARN MODELS (NOT BOOSTERS)
+        cost_model = joblib.load("artifacts/cost_model.pkl")
+        co2_model = joblib.load("artifacts/co2_model.pkl")
 
-        co2_model = xgb.Booster()
-        co2_model.load_model("artifacts/co2_model.pkl")
-
-        print("✅ ML models loaded as CPU Boosters")
+        print("✅ ML models loaded (sklearn inference)")
         return True
 
     except Exception as e:
@@ -150,25 +111,17 @@ def export_pdf():
     return send_file(path, as_attachment=True)
 
 
-@app.route("/health")
-def health():
-    return jsonify({"status": "ok"})
-
-
 @app.route("/recommend", methods=["POST"])
 def recommend_material():
-    api_key = request.headers.get("X-API-KEY")
-    if api_key != API_KEY:
+    if request.headers.get("X-API-KEY") != API_KEY:
         return jsonify({"error": "Unauthorized"}), 401
 
     product_input = request.get_json()
     if not product_input:
         return jsonify({"error": "No input provided"}), 400
 
-    recommendations_df = generate_ai_recommendations(product_input, top_n=5)
+    recommendations_df = generate_ai_recommendations(product_input)
     formatted = format_recommendation_response(recommendations_df)
-
-    log_recommendation(product_input, formatted)
 
     return jsonify({
         "status": "success",
@@ -177,7 +130,7 @@ def recommend_material():
     })
 
 
-# -------------------- AI LOGIC (FIXED) --------------------
+# -------------------- AI LOGIC (FINAL) --------------------
 def generate_ai_recommendations(product_input, top_n=5):
     global df
 
@@ -207,18 +160,18 @@ def generate_ai_recommendations(product_input, top_n=5):
     X_filtered = X.loc[filtered_df.index]
     X_processed = preprocessor.transform(X_filtered)
 
-    # 🔥 CPU-SAFE PREDICTION
-    dmat = xgb.DMatrix(X_processed)
+    # ✅ CORRECT PREDICTION
+    filtered_df["Predicted_Cost"] = cost_model.predict(X_processed)
+    filtered_df["Predicted_CO2"] = co2_model.predict(X_processed)
 
-    filtered_df["Predicted_Cost"] = cost_model.predict(dmat)
-    filtered_df["Predicted_CO2"] = co2_model.predict(dmat)
-
-    cost_norm = filtered_df["Predicted_Cost"].max() - filtered_df["Predicted_Cost"].min()
-    co2_norm = filtered_df["Predicted_CO2"].max() - filtered_df["Predicted_CO2"].min()
+    cost_norm = filtered_df["Predicted_Cost"].ptp() or 1
+    co2_norm = filtered_df["Predicted_CO2"].ptp() or 1
 
     filtered_df["Final_Score"] = (
-        (1 - eco_priority) * (filtered_df["Predicted_Cost"] - filtered_df["Predicted_Cost"].min()) / (cost_norm or 1) +
-        eco_priority * (filtered_df["Predicted_CO2"] - filtered_df["Predicted_CO2"].min()) / (co2_norm or 1)
+        (1 - eco_priority) *
+        (filtered_df["Predicted_Cost"] - filtered_df["Predicted_Cost"].min()) / cost_norm +
+        eco_priority *
+        (filtered_df["Predicted_CO2"] - filtered_df["Predicted_CO2"].min()) / co2_norm
     )
 
     filtered_df["Rank"] = filtered_df["Final_Score"].rank(method="first").astype(int)
@@ -229,19 +182,18 @@ def generate_ai_recommendations(product_input, top_n=5):
 
 # -------------------- RESPONSE FORMAT --------------------
 def format_recommendation_response(df):
-    results = []
-    for _, row in df.iterrows():
-        results.append({
-            "material_name": row.get("MATERIAL_TYPE", "Standard Packaging"),
-            "rank": int(row.get("Rank", 1)),
-            "predicted_cost": None if pd.isna(row.get("Predicted_Cost")) else round(row["Predicted_Cost"], 2),
-            "predicted_co2": None if pd.isna(row.get("Predicted_CO2")) else round(row["Predicted_CO2"], 2),
-            "final_score": None if pd.isna(row.get("Final_Score")) else round(row["Final_Score"], 4),
-            "explanation": row.get("Explanation")
-        })
-    return results
+    return [
+        {
+            "material_name": row["MATERIAL_TYPE"],
+            "rank": int(row["Rank"]),
+            "predicted_cost": round(row["Predicted_Cost"], 2),
+            "predicted_co2": round(row["Predicted_CO2"], 2),
+            "final_score": round(row["Final_Score"], 4),
+            "explanation": row["Explanation"]
+        }
+        for _, row in df.iterrows()
+    ]
 
 
-# -------------------- RUN --------------------
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
