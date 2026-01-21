@@ -3,6 +3,7 @@ import joblib
 import pandas as pd
 import sqlite3
 import os
+import xgboost as xgb   # 🔥 NEW
 
 # -------------------- RENDER SAFE MATPLOTLIB --------------------
 import matplotlib
@@ -93,7 +94,7 @@ def log_recommendation(input_product, recommended_materials):
     conn.close()
 
 
-# -------------------- ML LOADER --------------------
+# -------------------- ML LOADER (FIXED) --------------------
 def load_models():
     global preprocessor, cost_model, co2_model, X
 
@@ -102,11 +103,18 @@ def load_models():
 
     try:
         preprocessor = joblib.load("artifacts/preprocessor.pkl")
-        cost_model = joblib.load("artifacts/cost_model.pkl")
-        co2_model = joblib.load("artifacts/co2_model.pkl")
         X = joblib.load("artifacts/X.pkl")
-        print("✅ ML models loaded")
+
+        # 🔥 LOAD AS CPU-SAFE BOOSTERS
+        cost_model = xgb.Booster()
+        cost_model.load_model("artifacts/cost_model.pkl")
+
+        co2_model = xgb.Booster()
+        co2_model.load_model("artifacts/co2_model.pkl")
+
+        print("✅ ML models loaded as CPU Boosters")
         return True
+
     except Exception as e:
         print("⚠️ ML models not available, fallback mode:", e)
         return False
@@ -169,7 +177,7 @@ def recommend_material():
     })
 
 
-# -------------------- AI LOGIC --------------------
+# -------------------- AI LOGIC (FIXED) --------------------
 def generate_ai_recommendations(product_input, top_n=5):
     global df
 
@@ -199,8 +207,11 @@ def generate_ai_recommendations(product_input, top_n=5):
     X_filtered = X.loc[filtered_df.index]
     X_processed = preprocessor.transform(X_filtered)
 
-    filtered_df["Predicted_Cost"] = cost_model.predict(X_processed)
-    filtered_df["Predicted_CO2"] = co2_model.predict(X_processed)
+    # 🔥 CPU-SAFE PREDICTION
+    dmat = xgb.DMatrix(X_processed)
+
+    filtered_df["Predicted_Cost"] = cost_model.predict(dmat)
+    filtered_df["Predicted_CO2"] = co2_model.predict(dmat)
 
     cost_norm = filtered_df["Predicted_Cost"].max() - filtered_df["Predicted_Cost"].min()
     co2_norm = filtered_df["Predicted_CO2"].max() - filtered_df["Predicted_CO2"].min()
@@ -211,7 +222,6 @@ def generate_ai_recommendations(product_input, top_n=5):
     )
 
     filtered_df["Rank"] = filtered_df["Final_Score"].rank(method="first").astype(int)
-
     filtered_df["Explanation"] = "Balanced cost & sustainability"
 
     return filtered_df.sort_values("Rank").head(top_n).reset_index(drop=True)
