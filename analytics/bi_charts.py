@@ -1,21 +1,27 @@
+import os
 import sqlite3
 import pandas as pd
 import matplotlib
-matplotlib.use("Agg")  # ✅ IMPORTANT (no GUI)
+
+# 🔥 FORCE HEADLESS BACKEND (CRITICAL FOR RENDER)
+matplotlib.use("Agg")
+
 import matplotlib.pyplot as plt
-import os
 
 DB_PATH = "data/packaging.db"
 CHART_DIR = "static/charts"
 
-os.makedirs(CHART_DIR, exist_ok=True)
 
 def generate_charts():
+    # Ensure chart directory exists
+    os.makedirs(CHART_DIR, exist_ok=True)
+
     conn = sqlite3.connect(DB_PATH)
     df = pd.read_sql("SELECT * FROM recommendation_logs", conn)
     conn.close()
 
     if df.empty:
+        print("⚠️ No data available for charts")
         return
 
     df["created_at"] = pd.to_datetime(df["created_at"])
@@ -23,11 +29,12 @@ def generate_charts():
     # ---------------- Material Usage ----------------
     material_usage = df["material_name"].value_counts()
 
-    plt.figure(figsize=(6, 4))
+    plt.figure()
     material_usage.plot(kind="bar")
     plt.title("Material Usage Trend")
     plt.xlabel("Material")
     plt.ylabel("Count")
+    plt.xticks(rotation=45, ha="right")
     plt.tight_layout()
     plt.savefig(f"{CHART_DIR}/material_usage.png")
     plt.close()
@@ -35,7 +42,7 @@ def generate_charts():
     # ---------------- CO2 Trend ----------------
     co2_trend = df.groupby(df["created_at"].dt.date)["predicted_co2"].mean()
 
-    plt.figure(figsize=(6, 4))
+    plt.figure()
     co2_trend.plot(marker="o")
     plt.title("Average CO₂ Impact Over Time")
     plt.xlabel("Date")
@@ -46,7 +53,7 @@ def generate_charts():
     plt.close()
 
     # ---------------- Cost Distribution ----------------
-    plt.figure(figsize=(6, 4))
+    plt.figure()
     plt.hist(df["predicted_cost"], bins=10)
     plt.title("Cost Distribution")
     plt.xlabel("Predicted Cost")
@@ -54,3 +61,5 @@ def generate_charts():
     plt.tight_layout()
     plt.savefig(f"{CHART_DIR}/cost_distribution.png")
     plt.close()
+
+    print("✅ Charts generated successfully")

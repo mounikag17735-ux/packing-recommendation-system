@@ -1,4 +1,5 @@
 import sqlite3
+import pandas as pd
 import os
 
 DB_PATH = "data/packaging.db"
@@ -8,25 +9,42 @@ def init_db():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
+    # Create materials table
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS materials (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
         MATERIAL_TYPE TEXT,
-        STRENGTH REAL,
+        STRENGTH INTEGER,
         WEIGHT_CAPACITY REAL,
         INDUSTRY_CATEGORY TEXT
     )
     """)
 
+    # Create logs table
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS recommendation_logs (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         material_name TEXT,
         predicted_cost REAL,
         predicted_co2 REAL,
+        eco_priority REAL,
+        fragility_level TEXT,
+        industry TEXT,
+        product_weight REAL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
     """)
+
+    # 🔥 INSERT DEFAULT MATERIALS IF EMPTY
+    count = cursor.execute("SELECT COUNT(*) FROM materials").fetchone()[0]
+
+    if count == 0:
+        df = pd.read_csv("data/materials_data.csv")
+        df[[
+            "MATERIAL_TYPE",
+            "STRENGTH",
+            "WEIGHT_CAPACITY",
+            "INDUSTRY_CATEGORY"
+        ]].to_sql("materials", conn, if_exists="append", index=False)
 
     conn.commit()
     conn.close()
