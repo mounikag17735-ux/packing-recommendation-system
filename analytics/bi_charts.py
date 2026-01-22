@@ -2,18 +2,24 @@ import os
 import sqlite3
 import pandas as pd
 import matplotlib
-import os
-os.makedirs("static/charts", exist_ok=True)
 
-# 🔥 FORCE HEADLESS BACKEND (CRITICAL FOR RENDER)
+# 🔥 Headless backend (required)
 matplotlib.use("Agg")
-
 import matplotlib.pyplot as plt
 
-DB_PATH = "data/packaging.db"
-CHART_DIR = "static/charts"
+
+# -------------------- PATH FIX (CRITICAL) --------------------
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+def p(*paths):
+    return os.path.join(BASE_DIR, *paths)
 
 
+DB_PATH = p("data", "packaging.db")
+CHART_DIR = p("static", "charts")
+
+
+# -------------------- MAIN FUNCTION --------------------
 def generate_charts():
     os.makedirs(CHART_DIR, exist_ok=True)
 
@@ -29,9 +35,8 @@ def generate_charts():
 
     # ---------------- Material Usage ----------------
     material_usage = df["material_name"].dropna().value_counts()
-    if material_usage.empty:
-        print("⚠️ No material usage data")
-    else:
+
+    if not material_usage.empty:
         plt.figure()
         material_usage.plot(kind="bar")
         plt.title("Material Usage Trend")
@@ -39,7 +44,7 @@ def generate_charts():
         plt.ylabel("Count")
         plt.xticks(rotation=45, ha="right")
         plt.tight_layout()
-        plt.savefig(f"{CHART_DIR}/material_usage.png")
+        plt.savefig(p("static", "charts", "material_usage.png"))
         plt.close()
 
     # ---------------- CO₂ Trend ----------------
@@ -49,30 +54,27 @@ def generate_charts():
           .mean()
     )
 
-    if co2_trend.empty:
-        print("⚠️ No valid CO₂ data for chart")
-    else:
+    if not co2_trend.empty:
         plt.figure()
         co2_trend.plot(marker="o")
         plt.title("Average CO₂ Impact Over Time")
         plt.xlabel("Date")
         plt.ylabel("Predicted CO₂")
         plt.tight_layout()
-        plt.savefig(f"{CHART_DIR}/co2_trend.png")
+        plt.savefig(p("static", "charts", "co2_trend.png"))
         plt.close()
 
     # ---------------- Cost Distribution ----------------
     costs = df["predicted_cost"].dropna()
-    if costs.empty:
-        print("⚠️ No valid cost data for chart")
-    else:
+
+    if not costs.empty:
         plt.figure()
         plt.hist(costs, bins=10)
         plt.title("Cost Distribution")
         plt.xlabel("Predicted Cost")
         plt.ylabel("Frequency")
         plt.tight_layout()
-        plt.savefig(f"{CHART_DIR}/cost_distribution.png")
+        plt.savefig(p("static", "charts", "cost_distribution.png"))
         plt.close()
 
-    print("✅ Charts generated successfully")
+    print("✅ Charts generated successfully at:", CHART_DIR)

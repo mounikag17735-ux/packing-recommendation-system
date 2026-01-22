@@ -4,33 +4,36 @@ import pandas as pd
 import sqlite3
 import os
 
-# -------------------- RENDER SAFE MATPLOTLIB --------------------
 import matplotlib
 matplotlib.use("Agg")
 
-# -------------------- BI / UTILS --------------------
 from analytics.bi_metrics import get_bi_metrics
 from analytics.bi_charts import generate_charts
 from bi_dashboard.export_reports import load_logs, export_excel_report
 from bi_dashboard.generate_pdf_report import generate_pdf
 from init_db import init_db
 
+
+# -------------------- PATH HELPER (CRITICAL FOR HF) --------------------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+def p(*paths):
+    return os.path.join(BASE_DIR, *paths)
+
+
 # -------------------- INIT DB --------------------
 init_db()
 
-# -------------------- CONFIG --------------------
 API_KEY = os.getenv("API_KEY", "packaging_ai_2026_secret")
-DB_PATH = "data/packaging.db"
+DB_PATH = p("data", "packaging.db")
 
-# -------------------- FLASK APP --------------------
 app = Flask(__name__)
 
-# -------------------- GLOBAL STATE --------------------
 df = None
 preprocessor = None
 cost_model = None
 co2_model = None
 X = None
+
 
 DEFAULT_MATERIAL = {
     "MATERIAL_TYPE": "Standard Packaging",
@@ -41,7 +44,8 @@ DEFAULT_MATERIAL = {
     "Explanation": "Fallback recommendation due to insufficient matching data"
 }
 
-# -------------------- DB HELPERS --------------------
+
+# -------------------- DB --------------------
 def get_db_connection():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
@@ -58,7 +62,7 @@ def load_materials_from_db():
         conn.close()
 
 
-# -------------------- ML LOADER (FINAL & CORRECT) --------------------
+# -------------------- MODEL LOADER --------------------
 def load_models():
     global preprocessor, cost_model, co2_model, X
 
@@ -66,18 +70,17 @@ def load_models():
         return True
 
     try:
-        preprocessor = joblib.load("artifacts/preprocessor.pkl")
-        X = joblib.load("artifacts/X.pkl")
+        preprocessor = joblib.load(p("artifacts", "preprocessor.pkl"))
+        X = joblib.load(p("artifacts", "X.pkl"))
 
-        # ✅ LOAD SKLEARN MODELS (NOT BOOSTERS)
-        cost_model = joblib.load("artifacts/cost_model.pkl")
-        co2_model = joblib.load("artifacts/co2_model.pkl")
+        cost_model = joblib.load(p("artifacts", "cost_model.pkl"))
+        co2_model = joblib.load(p("artifacts", "co2_model.pkl"))
 
-        print("✅ ML models loaded (sklearn inference)")
+        print("✅ ML models loaded")
         return True
 
     except Exception as e:
-        print("⚠️ ML models not available, fallback mode:", e)
+        print("⚠️ ML models not available:", e)
         return False
 
 
@@ -101,8 +104,8 @@ def export_excel():
         return jsonify({"error": "No data available"}), 400
 
     export_excel_report(df_logs)
-    latest_file = sorted(os.listdir("reports"))[-1]
-    return send_file(f"reports/{latest_file}", as_attachment=True)
+    latest_file = sorted(os.listdir(p("reports")))[-1]
+    return send_file(p("reports", latest_file), as_attachment=True)
 
 
 @app.route("/export/pdf")
@@ -117,9 +120,6 @@ def recommend_material():
         return jsonify({"error": "Unauthorized"}), 401
 
     product_input = request.get_json()
-    if not product_input:
-        return jsonify({"error": "No input provided"}), 400
-
     recommendations_df = generate_ai_recommendations(product_input)
     formatted = format_recommendation_response(recommendations_df)
 
@@ -130,7 +130,7 @@ def recommend_material():
     })
 
 
-# -------------------- AI LOGIC (FINAL) --------------------
+# -------------------- AI LOGIC --------------------
 def generate_ai_recommendations(product_input, top_n=5):
     global df
 
@@ -160,12 +160,11 @@ def generate_ai_recommendations(product_input, top_n=5):
     X_filtered = X.loc[filtered_df.index]
     X_processed = preprocessor.transform(X_filtered)
 
-    # ✅ CORRECT PREDICTION
     filtered_df["Predicted_Cost"] = cost_model.predict(X_processed)
     filtered_df["Predicted_CO2"] = co2_model.predict(X_processed)
 
-    cost_norm = filtered_df["Predicted_Cost"].ptp() or 1
-    co2_norm = filtered_df["Predicted_CO2"].ptp() or 1
+    cost_norm = filtered_df["Predicted_Cost"].max() - filtered_df["Predicted_Cost"].min() or 1
+    co2_norm = filtered_df["Predicted_CO2"].max() - filtered_df["Predicted_CO2"].min() or 1
 
     filtered_df["Final_Score"] = (
         (1 - eco_priority) *
@@ -180,7 +179,7 @@ def generate_ai_recommendations(product_input, top_n=5):
     return filtered_df.sort_values("Rank").head(top_n).reset_index(drop=True)
 
 
-# -------------------- RESPONSE FORMAT --------------------
+# -------------------- RESPONSE --------------------
 def format_recommendation_response(df):
     return [
         {
@@ -198,4 +197,3 @@ def format_recommendation_response(df):
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 7860))
     app.run(host="0.0.0.0", port=port)
-

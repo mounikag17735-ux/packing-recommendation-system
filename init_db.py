@@ -2,10 +2,19 @@ import sqlite3
 import pandas as pd
 import os
 
-DB_PATH = "data/packaging.db"
+# -------------------- PATH FIX (CRITICAL FOR HF/DOCKER) --------------------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+def p(*paths):
+    return os.path.join(BASE_DIR, *paths)
+
+DB_PATH = p("data", "packaging.db")
+CSV_PATH = p("data", "materials_cleaned.csv")
+
 
 def init_db():
-    os.makedirs("data", exist_ok=True)
+    os.makedirs(p("data"), exist_ok=True)
+
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
@@ -44,13 +53,13 @@ def init_db():
         conn.close()
         return
 
+    print("📥 Seeding materials from CSV...")
+
     # ---------- LOAD CSV ----------
-    df = pd.read_csv("data/materials_cleaned.csv")
+    df = pd.read_csv(CSV_PATH)
     df.columns = df.columns.str.strip().str.upper()
 
-    print("CSV columns:", df.columns.tolist())
-
-    # ---------- SAFETY CHECK ----------
+    # ---------- FIND ONE-HOT COLUMNS ----------
     material_cols = [c for c in df.columns if c.startswith("MATERIAL_TYPE_")]
     industry_cols = [c for c in df.columns if c.startswith("INDUSTRY_CATEGORY_")]
 
