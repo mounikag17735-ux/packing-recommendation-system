@@ -157,8 +157,9 @@ def generate_ai_recommendations(product_input, top_n=5):
     if filtered_df.empty:
         return pd.DataFrame([DEFAULT_MATERIAL])
 
-    X_filtered = X.loc[filtered_df.index]
-    X_processed = preprocessor.transform(X_filtered)
+    # Recreate features from the actual rows (CORRECT WAY)
+    X_processed = preprocessor.transform(filtered_df)
+
 
     filtered_df["Predicted_Cost"] = cost_model.predict(X_processed)
     filtered_df["Predicted_CO2"] = co2_model.predict(X_processed)
