@@ -180,18 +180,32 @@ def generate_ai_recommendations(product_input, top_n=5):
 
 
 # -------------------- RESPONSE --------------------
+def safe_round(val, digits=2):
+    try:
+        if val is None or pd.isna(val):
+            return None
+        return round(float(val), digits)
+    except:
+        return None
+
+
 def format_recommendation_response(df):
-    return [
-        {
-            "material_name": row["MATERIAL_TYPE"],
-            "rank": int(row["Rank"]),
-            "predicted_cost": round(row["Predicted_Cost"], 2),
-            "predicted_co2": round(row["Predicted_CO2"], 2),
-            "final_score": round(row["Final_Score"], 4),
-            "explanation": row["Explanation"]
-        }
-        for _, row in df.iterrows()
-    ]
+    results = []
+
+    for _, row in df.iterrows():
+        results.append({
+            "material_name": row.get("MATERIAL_TYPE", "Standard Packaging"),
+            "rank": int(row.get("Rank", 1)),
+            "predicted_cost": safe_round(row.get("Predicted_Cost")),
+            "predicted_co2": safe_round(row.get("Predicted_CO2")),
+            "final_score": safe_round(row.get("Final_Score"), 4),
+            "explanation": row.get(
+                "Explanation",
+                "Fallback recommendation due to insufficient matching data"
+            )
+        })
+
+    return results
 
 
 if __name__ == "__main__":
