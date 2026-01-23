@@ -1,16 +1,31 @@
+import os
 import pandas as pd
 import joblib
 
+from analytics.train_model import train_models
 from analytics.cloud_db import get_connection
+
 
 MODEL_PATH = "analytics/rf_cost_model.pkl"
 ENCODER_PATH = "analytics/industry_encoder.pkl"
 
-rf_model = joblib.load(MODEL_PATH)
-encoder = joblib.load(ENCODER_PATH)
+
+# ---------------------------------------------------
+# Lazy load / auto-train models (HF compatible)
+# ---------------------------------------------------
+def get_models():
+    if not os.path.exists(MODEL_PATH) or not os.path.exists(ENCODER_PATH):
+        print("🔧 Models missing. Training now...")
+        train_models()
+
+    rf_model = joblib.load(MODEL_PATH)
+    encoder = joblib.load(ENCODER_PATH)
+    return rf_model, encoder
 
 
-# 🔥 Map UI values → DB values
+# ---------------------------------------------------
+# Map UI values → DB values
+# ---------------------------------------------------
 INDUSTRY_MAP = {
     "Food": "Food & Beverage",
     "Pharmaceuticals": "Pharmaceutical",
@@ -33,27 +48,29 @@ def load_materials():
 # Recommendation Logic
 # ---------------------------------------------------
 def recommend_material(fragility, weight, eco_priority, industry):
+    rf_model, encoder = get_models()
+
     df = load_materials()
 
-    # --- Clean input and map to DB value ---
+    # Clean + map input
     industry = industry.strip().title()
     db_industry = INDUSTRY_MAP.get(industry, industry)
 
-    # --- Filter using DB value ---
+    # Filter by industry
     df = df[df["industry_category"] == db_industry].copy()
     if df.empty:
         return []
 
-    # --- Weight filter with fallback ---
+    # Weight filter
     filtered = df[df["weight_capacity"] >= weight]
     if not filtered.empty:
         df = filtered
 
-    # --- Encode industry EXACTLY like training ---
+    # Encode industry like training
     encoded_industry = encoder.transform([db_industry])[0]
     df["industry_category"] = encoded_industry
 
-    # --- Features EXACTLY same as training ---
+    # Features EXACT as training
     features = df[
         [
             "strength",
@@ -64,13 +81,13 @@ def recommend_material(fragility, weight, eco_priority, industry):
         ]
     ].copy()
 
-    # --- ML Predictions ---
+    # Predictions
     df["predicted_cost"] = rf_model.predict(features)
 
     max_co2 = df["co2_emission_score"].max()
     df["predicted_co2"] = df["co2_emission_score"] / max_co2
 
-    # --- Smart scoring ---
+    # Smart score
     fragility_factor = fragility / 10
     df["fragility_score"] = df["strength"] * fragility_factor
 
@@ -82,11 +99,11 @@ def recommend_material(fragility, weight, eco_priority, industry):
 
     ranked = df.sort_values(by="final_score", ascending=False).head(5)
 
-    results = []
-
-    # --- Save logs to SQLiteCloud ---
+    # Save logs to Cloud DB
     conn = get_connection()
     cursor = conn.cursor()
+
+    results = []
 
     for _, row in ranked.iterrows():
         explanation = f"""
@@ -95,23 +112,28 @@ suitable for fragility level {fragility},
 balances cost with eco priority {eco_priority}.
 """.strip()
 
-        cursor.execute("""
+        cursor.execute(
+            """
             INSERT INTO recommendation_logs
             (industry, material, predicted_cost, predicted_co2)
             VALUES (?, ?, ?, ?)
-        """, (
-            db_industry,
-            row["material_type"],
-            float(row["predicted_cost"]),
-            float(row["predicted_co2"]),
-        ))
+            """,
+            (
+                db_industry,
+                row["material_type"],
+                float(row["predicted_cost"]),
+                float(row["predicted_co2"]),
+            ),
+        )
 
-        results.append({
-            "material_name": row["material_type"],
-            "predicted_cost": round(float(row["predicted_cost"]), 2),
-            "predicted_co2": round(float(row["predicted_co2"]), 2),
-            "explanation": explanation,
-        })
+        results.append(
+            {
+                "material_name": row["material_type"],
+                "predicted_cost": round(float(row["predicted_cost"]), 2),
+                "predicted_co2": round(float(row["predicted_co2"]), 2),
+                "explanation": explanation,
+            }
+        )
 
     conn.commit()
     conn.close()
