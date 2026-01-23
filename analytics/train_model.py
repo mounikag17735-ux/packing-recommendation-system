@@ -5,7 +5,7 @@ from sklearn.ensemble import RandomForestRegressor
 from xgboost import XGBRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
-from ml_prepare import (
+from analytics.ml_prepare import (
     load_data,
     engineer_targets,
     encode_features,
