@@ -1,8 +1,0 @@
-category_id,category_name,protection_level,temperature_sensitive,moisture_sensitive
-1,Electronics,high,yes,yes
-2,Food & Beverage,high,yes,yes
-3,Cosmetics,medium,no,yes
-4,Home & Garden,medium,no,no
-5,Textiles,low,no,no
-6,Books,low,no,no
-7,Office Supplies,low,no,no
