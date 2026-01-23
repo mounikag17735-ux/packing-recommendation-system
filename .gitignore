@@ -7,9 +7,6 @@ __pycache__/
 *.pyc
 *.pyo
 
-# Database (generated at runtime)
-data/materials.db
-
 # Generated charts (BI dashboard output)
 app/static/*.png
 
