@@ -10,7 +10,7 @@ rf_model = joblib.load(MODEL_PATH)
 encoder = joblib.load(ENCODER_PATH)
 
 
-# 🔥 Map UI values → DB/Encoder values
+# 🔥 Map UI values → DB values
 INDUSTRY_MAP = {
     "Food": "Food & Beverage",
     "Pharmaceuticals": "Pharmaceutical",
@@ -19,6 +19,9 @@ INDUSTRY_MAP = {
 }
 
 
+# ---------------------------------------------------
+# Load materials from SQLiteCloud
+# ---------------------------------------------------
 def load_materials():
     conn = get_connection()
     df = pd.read_sql("SELECT * FROM materials", conn)
@@ -26,6 +29,9 @@ def load_materials():
     return df
 
 
+# ---------------------------------------------------
+# Recommendation Logic
+# ---------------------------------------------------
 def recommend_material(fragility, weight, eco_priority, industry):
     df = load_materials()
 
@@ -45,10 +51,9 @@ def recommend_material(fragility, weight, eco_priority, industry):
 
     # --- Encode industry EXACTLY like training ---
     encoded_industry = encoder.transform([db_industry])[0]
-
-    # --- Features EXACTLY same as training ---
     df["industry_category"] = encoded_industry
 
+    # --- Features EXACTLY same as training ---
     features = df[
         [
             "strength",
@@ -79,7 +84,7 @@ def recommend_material(fragility, weight, eco_priority, industry):
 
     results = []
 
-    # --- Save logs for dashboard (CLOUD DB) ---
+    # --- Save logs to SQLiteCloud ---
     conn = get_connection()
     cursor = conn.cursor()
 
@@ -98,14 +103,14 @@ balances cost with eco priority {eco_priority}.
             db_industry,
             row["material_type"],
             float(row["predicted_cost"]),
-            float(row["predicted_co2"])
+            float(row["predicted_co2"]),
         ))
 
         results.append({
             "material_name": row["material_type"],
             "predicted_cost": round(float(row["predicted_cost"]), 2),
             "predicted_co2": round(float(row["predicted_co2"]), 2),
-            "explanation": explanation
+            "explanation": explanation,
         })
 
     conn.commit()

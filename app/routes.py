@@ -30,6 +30,16 @@ def dashboard():
     df = pd.read_sql("SELECT * FROM recommendation_logs", conn)
     conn.close()
 
+    # Prevent crash when no data
+    if df.empty:
+        return render_template(
+            "dashboard.html",
+            message="No recommendations yet. Please run a recommendation first."
+        )
+
+    df["predicted_co2"] = pd.to_numeric(df["predicted_co2"], errors="coerce")
+    df["predicted_cost"] = pd.to_numeric(df["predicted_cost"], errors="coerce")
+
     static_path = current_app.static_folder
     os.makedirs(static_path, exist_ok=True)
 
@@ -38,6 +48,7 @@ def dashboard():
     usage_chart_path = os.path.join(static_path, "usage_chart.png")
 
     # CO2 chart
+    plt.figure()
     df.groupby("material")["predicted_co2"].mean().plot(kind="bar")
     plt.title("Average CO2 Score by Material")
     plt.tight_layout()
@@ -45,6 +56,7 @@ def dashboard():
     plt.close()
 
     # Cost chart
+    plt.figure()
     df.groupby("material")["predicted_cost"].mean().plot(kind="bar")
     plt.title("Average Cost Score by Material")
     plt.tight_layout()
@@ -52,6 +64,7 @@ def dashboard():
     plt.close()
 
     # Usage chart
+    plt.figure()
     df["material"].value_counts().plot(kind="bar")
     plt.title("Material Usage Frequency")
     plt.tight_layout()
