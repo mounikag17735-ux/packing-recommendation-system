@@ -34,7 +34,7 @@ def dashboard():
 
     # ✅ Correct static folder (works on HF)
     static_path = current_app.static_folder
-
+    os.makedirs(static_path, exist_ok=True)
     co2_chart_path = os.path.join(static_path, "co2_chart.png")
     cost_chart_path = os.path.join(static_path, "cost_chart.png")
     usage_chart_path = os.path.join(static_path, "usage_chart.png")
