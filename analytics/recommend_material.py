@@ -3,6 +3,7 @@ import pandas as pd
 import joblib
 import os
 import shutil
+from analytics.train_model import train_models
 
 # Detect if running on Hugging Face (Linux container)
 if os.name != "nt":
@@ -15,8 +16,15 @@ else:
 
 
 
-rf_model = joblib.load("analytics/rf_cost_model.pkl")
-encoder = joblib.load("analytics/industry_encoder.pkl")
+MODEL_PATH = "analytics/rf_cost_model.pkl"
+ENCODER_PATH = "analytics/industry_encoder.pkl"
+
+    # Auto-train models if not present (for HuggingFace)
+if not os.path.exists(MODEL_PATH) or not os.path.exists(ENCODER_PATH):
+    train_models()
+
+rf_model = joblib.load(MODEL_PATH)
+encoder = joblib.load(ENCODER_PATH)
 
 
 # 🔥 Map UI values → DB/Encoder values
