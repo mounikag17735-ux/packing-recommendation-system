@@ -1,15 +1,12 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, send_file, current_app
 from analytics.recommend_material import recommend_material
 import sqlite3
 import pandas as pd
-import matplotlib.pyplot as plt
-from flask import send_file
 import matplotlib
-matplotlib.use("Agg")  # important for Flask
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import os
-from flask import send_file
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.pagesizes import A4
 from openpyxl import Workbook
@@ -19,24 +16,28 @@ main = Blueprint("main", __name__)
 
 
 # ---------------------------------------
-# Home Page (Input Form)
+# Home Page
 # ---------------------------------------
 @main.route("/")
 def home():
     return render_template("index.html")
 
+
+# ---------------------------------------
+# Dashboard (Charts)
+# ---------------------------------------
 @main.route("/dashboard")
 def dashboard():
     conn = sqlite3.connect("data/materials.db")
     df = pd.read_sql("SELECT * FROM recommendation_logs", conn)
     conn.close()
 
-    # Absolute path to static folder
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    static_path = os.path.join(base_dir, "static")
+    # ✅ Correct static folder (works on HF)
+    static_path = current_app.static_folder
 
     co2_chart_path = os.path.join(static_path, "co2_chart.png")
     cost_chart_path = os.path.join(static_path, "cost_chart.png")
+    usage_chart_path = os.path.join(static_path, "usage_chart.png")
 
     # CO2 chart
     co2_avg = df.groupby("material")["predicted_co2"].mean()
@@ -56,16 +57,11 @@ def dashboard():
     plt.savefig(cost_chart_path)
     plt.close()
 
-        # Material usage trend (frequency)
+    # Usage chart
     usage_count = df["material"].value_counts()
-
-    usage_chart_path = os.path.join(static_path, "usage_chart.png")
-
     plt.figure()
     usage_count.plot(kind="bar")
     plt.title("Material Usage Frequency")
-    plt.xlabel("Material")
-    plt.ylabel("Number of Times Recommended")
     plt.tight_layout()
     plt.savefig(usage_chart_path)
     plt.close()
@@ -74,7 +70,7 @@ def dashboard():
 
 
 # ---------------------------------------
-# Form Submission → Show Result Page
+# Recommendation
 # ---------------------------------------
 @main.route("/recommend", methods=["POST"])
 def recommend():
@@ -87,26 +83,27 @@ def recommend():
 
     return render_template("index.html", result=result)
 
+
 # ---------------------------------------
-# REST API Endpoint (JSON)
+# API Endpoint
 # ---------------------------------------
 @main.route("/api/recommend", methods=["POST"])
 def api_recommend():
     data = request.get_json()
 
-    fragility = int(data.get("fragility"))
-    weight = float(data.get("weight"))
-    eco_priority = float(data.get("eco_priority"))
-    industry = data.get("industry")
-
     result = recommend_material(
-        fragility=fragility,
-        weight=weight,
-        eco_priority=eco_priority,
-        industry=industry,
+        fragility=int(data.get("fragility")),
+        weight=float(data.get("weight")),
+        eco_priority=float(data.get("eco_priority")),
+        industry=data.get("industry"),
     )
 
     return jsonify(result)
+
+
+# ---------------------------------------
+# Export Excel
+# ---------------------------------------
 @main.route("/export/excel")
 def export_excel():
     conn = sqlite3.connect("data/materials.db")
@@ -118,7 +115,6 @@ def export_excel():
     ws.title = "Sustainability Report"
 
     ws.append(list(df.columns))
-
     for row in df.itertuples(index=False):
         ws.append(list(row))
 
@@ -132,6 +128,11 @@ def export_excel():
         download_name="sustainability_report.xlsx",
         mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     )
+
+
+# ---------------------------------------
+# Export PDF
+# ---------------------------------------
 @main.route("/export/pdf")
 def export_pdf():
     conn = sqlite3.connect("data/materials.db")
@@ -143,7 +144,7 @@ def export_pdf():
     styles = getSampleStyleSheet()
     elements = []
 
-    elements.append(Paragraph("EcoPack AI - Sustainability Report", styles['Title']))
+    elements.append(Paragraph("EcoPack AI - Sustainability Report", styles["Title"]))
     elements.append(Spacer(1, 20))
 
     for _, row in df.iterrows():
@@ -153,7 +154,7 @@ def export_pdf():
         Predicted Cost: {row['predicted_cost']} <br/>
         Predicted CO2: {row['predicted_co2']} <br/><br/>
         """
-        elements.append(Paragraph(text, styles['Normal']))
+        elements.append(Paragraph(text, styles["Normal"]))
         elements.append(Spacer(1, 12))
 
     doc.build(elements)
