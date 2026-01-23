@@ -1,5 +1,6 @@
 import numpy as np
 import joblib
+import os
 
 from sklearn.ensemble import RandomForestRegressor
 from xgboost import XGBRegressor
@@ -31,12 +32,12 @@ def evaluate(model, X_test, y_test, title):
 
 
 # ---------------------------------------------------
-# Main Training Pipeline
+# 🔥 TRAIN MODELS FUNCTION (HF NEEDS THIS)
 # ---------------------------------------------------
-if __name__ == "__main__":
-    print("Training ML models...")
+def train_models():
+    print("🚀 Training ML models for first time...")
 
-    # Load and prepare data from Module 3
+    # Load and prepare data
     df = load_data()
     df = engineer_targets(df)
     df = encode_features(df)
@@ -52,26 +53,20 @@ if __name__ == "__main__":
         y_co2_test,
     ) = split_data(X, y_cost, y_co2)
 
-    # ---------------------------------------------------
-    # Model 1: Random Forest for Cost Prediction
-    # ---------------------------------------------------
+    # ------------------ Random Forest ------------------
     rf_model = RandomForestRegressor(random_state=42)
     rf_model.fit(X_train, y_cost_train)
 
     evaluate(rf_model, X_test, y_cost_test, "Random Forest - Cost Prediction")
 
-    # Save model
     joblib.dump(rf_model, "analytics/rf_cost_model.pkl")
 
-    # ---------------------------------------------------
-    # Model 2: XGBoost for CO2 Prediction
-    # ---------------------------------------------------
+    # ------------------ XGBoost ------------------
     xgb_model = XGBRegressor(random_state=42)
     xgb_model.fit(X_train, y_co2_train)
 
     evaluate(xgb_model, X_test, y_co2_test, "XGBoost - CO2 Prediction")
 
-    # Save model
     joblib.dump(xgb_model, "analytics/xgb_co2_model.pkl")
 
-    print("\n✅ Models trained and saved successfully!")
+    print("✅ Models trained and saved!")
