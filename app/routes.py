@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, jsonify, send_file, current_app
 from analytics.recommend_material import recommend_material
-import sqlite3
+from analytics.cloud_db import get_connection
+
 import pandas as pd
 import matplotlib
 matplotlib.use("Agg")
@@ -15,9 +16,6 @@ import io
 main = Blueprint("main", __name__)
 
 
-# ---------------------------------------
-# Home Page
-# ---------------------------------------
 @main.route("/")
 def home():
     return render_template("index.html")
@@ -28,39 +26,33 @@ def home():
 # ---------------------------------------
 @main.route("/dashboard")
 def dashboard():
-    conn = sqlite3.connect("data/materials.db")
+    conn = get_connection()
     df = pd.read_sql("SELECT * FROM recommendation_logs", conn)
     conn.close()
 
-    # ✅ Correct static folder (works on HF)
     static_path = current_app.static_folder
     os.makedirs(static_path, exist_ok=True)
+
     co2_chart_path = os.path.join(static_path, "co2_chart.png")
     cost_chart_path = os.path.join(static_path, "cost_chart.png")
     usage_chart_path = os.path.join(static_path, "usage_chart.png")
 
     # CO2 chart
-    co2_avg = df.groupby("material")["predicted_co2"].mean()
-    plt.figure()
-    co2_avg.plot(kind="bar")
+    df.groupby("material")["predicted_co2"].mean().plot(kind="bar")
     plt.title("Average CO2 Score by Material")
     plt.tight_layout()
     plt.savefig(co2_chart_path)
     plt.close()
 
     # Cost chart
-    cost_avg = df.groupby("material")["predicted_cost"].mean()
-    plt.figure()
-    cost_avg.plot(kind="bar")
+    df.groupby("material")["predicted_cost"].mean().plot(kind="bar")
     plt.title("Average Cost Score by Material")
     plt.tight_layout()
     plt.savefig(cost_chart_path)
     plt.close()
 
     # Usage chart
-    usage_count = df["material"].value_counts()
-    plt.figure()
-    usage_count.plot(kind="bar")
+    df["material"].value_counts().plot(kind="bar")
     plt.title("Material Usage Frequency")
     plt.tight_layout()
     plt.savefig(usage_chart_path)
@@ -74,13 +66,12 @@ def dashboard():
 # ---------------------------------------
 @main.route("/recommend", methods=["POST"])
 def recommend():
-    industry = request.form.get("industry")
-    weight = float(request.form.get("weight"))
-    fragility = float(request.form.get("fragility"))
-    eco_priority = float(request.form.get("eco_priority"))
-
-    result = recommend_material(fragility, weight, eco_priority, industry)
-
+    result = recommend_material(
+        fragility=float(request.form.get("fragility")),
+        weight=float(request.form.get("weight")),
+        eco_priority=float(request.form.get("eco_priority")),
+        industry=request.form.get("industry"),
+    )
     return render_template("index.html", result=result)
 
 
@@ -92,7 +83,7 @@ def api_recommend():
     data = request.get_json()
 
     result = recommend_material(
-        fragility=int(data.get("fragility")),
+        fragility=float(data.get("fragility")),
         weight=float(data.get("weight")),
         eco_priority=float(data.get("eco_priority")),
         industry=data.get("industry"),
@@ -106,24 +97,23 @@ def api_recommend():
 # ---------------------------------------
 @main.route("/export/excel")
 def export_excel():
-    conn = sqlite3.connect("data/materials.db")
+    conn = get_connection()
     df = pd.read_sql("SELECT * FROM recommendation_logs", conn)
     conn.close()
 
     wb = Workbook()
     ws = wb.active
-    ws.title = "Sustainability Report"
-
     ws.append(list(df.columns))
+
     for row in df.itertuples(index=False):
         ws.append(list(row))
 
-    file_stream = io.BytesIO()
-    wb.save(file_stream)
-    file_stream.seek(0)
+    stream = io.BytesIO()
+    wb.save(stream)
+    stream.seek(0)
 
     return send_file(
-        file_stream,
+        stream,
         as_attachment=True,
         download_name="sustainability_report.xlsx",
         mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -135,17 +125,18 @@ def export_excel():
 # ---------------------------------------
 @main.route("/export/pdf")
 def export_pdf():
-    conn = sqlite3.connect("data/materials.db")
+    conn = get_connection()
     df = pd.read_sql("SELECT * FROM recommendation_logs", conn)
     conn.close()
 
-    file_stream = io.BytesIO()
-    doc = SimpleDocTemplate(file_stream, pagesize=A4)
+    stream = io.BytesIO()
+    doc = SimpleDocTemplate(stream, pagesize=A4)
     styles = getSampleStyleSheet()
-    elements = []
 
-    elements.append(Paragraph("EcoPack AI - Sustainability Report", styles["Title"]))
-    elements.append(Spacer(1, 20))
+    elements = [
+        Paragraph("EcoPack AI - Sustainability Report", styles["Title"]),
+        Spacer(1, 20),
+    ]
 
     for _, row in df.iterrows():
         text = f"""
@@ -158,10 +149,10 @@ def export_pdf():
         elements.append(Spacer(1, 12))
 
     doc.build(elements)
-    file_stream.seek(0)
+    stream.seek(0)
 
     return send_file(
-        file_stream,
+        stream,
         as_attachment=True,
         download_name="sustainability_report.pdf",
         mimetype="application/pdf",

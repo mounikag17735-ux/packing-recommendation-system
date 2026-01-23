@@ -1,24 +1,11 @@
-import sqlite3
 import pandas as pd
 import joblib
-import os
-import shutil
 
-# Detect if running on Hugging Face (Linux container)
-if os.name != "nt":
-    DB_PATH = "/tmp/materials.db"
-    if not os.path.exists(DB_PATH):
-        shutil.copy("data/materials.db", DB_PATH)
-else:
-    # Local Windows run
-    DB_PATH = "data/materials.db"
-
-
+from analytics.cloud_db import get_connection
 
 MODEL_PATH = "analytics/rf_cost_model.pkl"
 ENCODER_PATH = "analytics/industry_encoder.pkl"
 
-    # Auto-train models if not present (for HuggingFace)
 rf_model = joblib.load(MODEL_PATH)
 encoder = joblib.load(ENCODER_PATH)
 
@@ -33,7 +20,7 @@ INDUSTRY_MAP = {
 
 
 def load_materials():
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_connection()
     df = pd.read_sql("SELECT * FROM materials", conn)
     conn.close()
     return df
@@ -92,8 +79,8 @@ def recommend_material(fragility, weight, eco_priority, industry):
 
     results = []
 
-    # --- Save logs for dashboard ---
-    conn = sqlite3.connect(DB_PATH)
+    # --- Save logs for dashboard (CLOUD DB) ---
+    conn = get_connection()
     cursor = conn.cursor()
 
     for _, row in ranked.iterrows():
