@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 
+from analytics.db_setup import setup_database
 from analytics.train_model import train_models
 
 
@@ -12,14 +13,19 @@ def create_app():
 
     app = Flask(__name__, template_folder=template_path)
 
-    # 🔥 HuggingFace first boot — train models if not present
-    model_path = os.path.join(project_root, "analytics", "rf_cost_model.pkl")
-    encoder_path = os.path.join(project_root, "analytics", "industry_encoder.pkl")
+    # ---------------------------------------------------
+    # 🔥 HF FIRST BOOT SEQUENCE (VERY IMPORTANT)
+    # ---------------------------------------------------
 
-    if not os.path.exists(model_path) or not os.path.exists(encoder_path):
-        print("🔧 Models not found. Training now...")
-        train_models()
-        print("✅ Models ready.")
+    print("🗄️ Setting up database...")
+    setup_database()   # creates materials table + inserts data
+
+    print("🤖 Training models...")
+    train_models()     # now DB exists, training works
+
+    print("✅ App ready!")
+
+    # ---------------------------------------------------
 
     from app.routes import main
     app.register_blueprint(main)
