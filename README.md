@@ -1,1 +1,1 @@
-# packing-recommendation-system
+EcoPack AI — Sustainable Packaging Recommendation System
