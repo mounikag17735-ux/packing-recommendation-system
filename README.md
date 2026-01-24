@@ -3,16 +3,38 @@
 
 EcoPack AI is a Machine Learning powered Flask web application that recommends the most cost-efficient and eco-friendly packaging material based on product characteristics like weight, fragility, industry, and sustainability priority.
 
-What This Project Demonstrates
+## What This Project Demonstrates
+- Flask web application development
+- End-to-end Machine Learning pipeline
+- Cloud database integration using SQLiteCloud
+- Live analytics dashboard with charts
+- Excel & PDF report generation
+- Deployment on HuggingFace Spaces (Docker)
 
-Flask web application development
+## How It Works
+- User enters product details
+- ML models predict best packaging material
+- Recommendation is logged to cloud DB
+- Dashboard visualizes sustainability metrics
 
-End-to-end Machine Learning pipeline
+## ML Models
+### Model	                                         Purpose
+Random Forest	                                     Cost Prediction
+XGBoost	CO₂                                        Impact Prediction
 
-Cloud database integration using SQLiteCloud
+## Dashboard
 
-Live analytics dashboard with charts
+- Average CO₂ score by material
 
-Excel & PDF report generation
+- Average cost score by material
 
-Deployment on HuggingFace Spaces (Docker)
+- Material usage frequency
+
+## Tech Stack
+
+Python • Flask • Pandas • Scikit-learn • XGBoost • SQLiteCloud • Matplotlib • ReportLab • OpenPyXL
+
+## Run Locally
+pip install -r requirements.txt
+python run.py
+
