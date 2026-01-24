@@ -18,9 +18,8 @@ EcoPack AI is a Machine Learning powered Flask web application that recommends t
 - Dashboard visualizes sustainability metrics
 
 ## ML Models
-### Model	                                         Purpose
-Random Forest	                                     Cost Prediction
-XGBoost	CO₂                                        Impact Prediction
+### Model and purpose
+Random Forest for Cost Prediction ,XGBoost	CO₂ for Impact Prediction
 
 ## Dashboard
 
@@ -36,5 +35,6 @@ Python • Flask • Pandas • Scikit-learn • XGBoost • SQLiteCloud • Mat
 
 ## Run Locally
 pip install -r requirements.txt
+
 python run.py
 
